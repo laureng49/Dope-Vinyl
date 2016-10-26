@@ -5,6 +5,8 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 ###################################### USER ####################################################
 
+#MACKENZIE IS MAKING A CHANGE
+
 def home(request):
     context = {'records' : Product.objects.all()}
     return render(request, "dope_vinyl/home.html", context)
