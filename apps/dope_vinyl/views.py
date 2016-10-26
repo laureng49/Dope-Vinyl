@@ -12,6 +12,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 #MACKENZIE AGAIN
 # Anderson Test
 # Lauren Test
+# MEOW BITCHES
 
 def home(request):
     context = {'records' : Product.objects.all()}
