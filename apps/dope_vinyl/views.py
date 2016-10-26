@@ -60,13 +60,12 @@ def adminlogin(request):
        admin = Admin.objects.login(request.POST)
        # print admin.values()
        # logged_admin = Admin.objects.get(id=request.session['logged_admin'])
-
        if not admin:
            messages.error(request, "Invalid login credentials!")
 
        else:
            # request.session['admin'] = admin.id
-           return redirect('/dashboard_allorders')
+           return redirect('/dashboard/orders')
    return redirect('/admin')
 
 ### we put one admin into the DB's Admin table.
