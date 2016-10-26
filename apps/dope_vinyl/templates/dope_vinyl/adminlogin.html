@@ -14,7 +14,7 @@
           <p{% if message.tags %} class="{{ message.tags }}"{% endif %}> {{message}}</p>
         {% endfor %}
       {% endif %}
-        <form class="" action="/adminlogin" method="post">
+        <form class="" action="/adminlogin" method="POST">
            {% csrf_token %}
             <label>Email: <input type="text" name="email" value=""></label>
             <label>Password: <input type="text" name="password" value=""></label>

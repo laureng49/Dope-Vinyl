@@ -5,15 +5,6 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 ###################################### USER ####################################################
 
-#MACKENZIE IS MAKING A CHANGE
-#another one
-#add something
-#Justin Made another change
-#MACKENZIE AGAIN
-# Anderson Test
-# Lauren Test
-# MEOW BITCHES
-
 def home(request):
     context = {'records' : Product.objects.all()}
     return render(request, "dope_vinyl/home.html", context)
@@ -69,7 +60,6 @@ def adminlogin(request):
        admin = Admin.objects.login(request.POST)
        # print admin.values()
        # logged_admin = Admin.objects.get(id=request.session['logged_admin'])
-
        if not admin:
            messages.error(request, "Invalid login credentials!")
 
