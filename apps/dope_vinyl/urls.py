@@ -14,8 +14,7 @@ urlpatterns = [
     url(r'^dashboard/products/add$', views.products_add),
     url(r'^dashboard/orders$', views.orders),
     # url(r'^adminlogout$', views.adminlogout),
-
-
+    url(r'^carts$', views.carts),
 
 
 

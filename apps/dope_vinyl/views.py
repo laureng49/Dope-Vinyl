@@ -49,6 +49,15 @@ def front_allproducts_cat(id):
     }
     return redirect('/front_allproducts')
 
+def carts(request):
+
+
+
+
+    return render(request, "dope_vinyl/front_shoppingcart.html")
+
+
+
 ###################################### ADMIN ###################################################
 def admin(request):
     return render(request, "dope_vinyl/adminlogin.html")
