@@ -1,0 +1,56 @@
+html {
+    width: 980px;
+    margin: auto;
+    font-family: helvetica;
+}
+
+body {
+    width: 100;
+}
+
+
+
+#nav_bar {
+    background-color: #565656;
+    color: white;
+    margin-bottom: 0px;
+}
+
+    h3 {
+        display: inline-block;
+        margin-left: 25px;
+        margin-right: 610px;
+    }
+
+    #nav_bar a {
+        background-color: #565656;
+        color: white;
+        display: inline-block;
+        vertical-align: top;
+        margin-top: 22px;
+    }
+
+#main {
+    background-image: url("../imgs/home.jpg");
+    background-size: 100%;
+    width: 964px;
+    margin-top: 0px;
+    padding-top: 10px;
+    padding-bottom: 200px;
+
+}
+
+    h1 {
+        text-align: center;
+        font-family: 'Pacifico', cursive;
+        color: white;
+        font-size: 48px;
+        margin-top: 175px;
+        margin-bottom: 0px;
+    }
+
+    h2 {
+        color: white;
+        margin-top: 0px;
+        text-align: center;
+    }

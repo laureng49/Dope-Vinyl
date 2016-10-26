@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        {% load staticfiles %}
+        <title>Admin Login Page</title>
+        <!-- <link rel="stylesheet" href="./../css/adminlogin.css" media="screen" title="no title"> -->
+        <link rel="stylesheet" href="{% static '/dope_records/css/adminlogin.css' %}" media="screen" title="no title">
+    </head>
+    <body>
+      <h1>Admin Log-In Page</h1>
+      {% if messages %}
+        {% for message in messages %}
+          <p{% if message.tags %} class="{{ message.tags }}"{% endif %}> {{message}}</p>
+        {% endfor %}
+      {% endif %}
+        <form class="" action="/adminlogin" method="post">
+           {% csrf_token %}
+            <label>Email: <input type="text" name="email" value=""></label>
+            <label>Password: <input type="text" name="password" value=""></label>
+            <input id="submit_button" type="submit" value="Log-In">
+        </form>
+    </body>
+</html>

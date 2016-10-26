@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        {% load staticfiles %}
+        <title>All Products</title>
+        <!-- <link rel="stylesheet" href="./../css/front_allproducts.css" media="screen" title="no title"> -->
+        <link rel="stylesheet" href="{% static '/dope_records/css/front_allproducts.css' %}" media="screen" title="no title">
+    </head>
+    <body>
+        <div id="nav_bar">
+            <h3>Dojo eCommerce</h3>
+            <a href="#">Shopping Cart (5)</a>
+        </div>
+        <div id="left_box">
+            <form class="" action="index.html" value="product name" method="post">
+                <input type="text" name="product_name" value="">
+                <input type="submit" name="name" value="Search">
+            </form>
+            <h4>Categories</h4>
+            <ul>
+               {% for genre in genres %}
+               <li><a href="{{genre.id}}">{{genre.genre_type}}</a></li>
+               {% endfor %}
+            </ul>
+        </div>
+        <div id="main">
+            <div id="main_top">
+                <h2>{{genres.genre}} Page {{products.number}}</h2>
+                <div id="pagination1">
+                  <span class="step-links">
+                     {% if products.has_previous %}
+                     <a href="?page={{products.previous_page_number}}">previous</a>
+                     {% endif %}
+                     <span class="current">
+                     Page {{products.number}} of {{products.paginator.num_pages}}.
+                     </span>
+                     {% if products.has_next %}
+                     <a href="?page={{products.next_page_number}}">next</a>
+                     {% endif %}
+                  </span>
+               </div>
+                <span id="sort">Sorted by</span><form class="" action="index.html" method="post">
+                        <select>
+                           <option value="artist">Artist Name</option>
+                            <option value="price">Price</option>
+                            <option value="most_popular">Most Popular</option>
+                        </select>
+                </form>
+            </div>
+            <div id="records">
+               <ul id="main_thumbnails">
+                  {% for product in products %}
+                   <a href=""><li><img id="images" src="static/dope_records/{{product.image}}"><p class="title">{{product.title}}</li></a>
+                   {% endfor %}
+               </ul>
+            </div>
+            <div class="pagination2">
+               <span class="step-links">
+                  {% if products.has_previous %}
+                  <a href="?page={{products.previous_page_number}}">previous</a>
+                  {% endif %}
+                  <span class="current">
+                  Page {{products.number}} of {{products.paginator.num_pages}}.
+                  </span>
+                  {% if products.has_next %}
+                  <a href="?page={{products.next_page_number}}">next</a>
+                  {% endif %}
+               </span>
+            </div>
+
+            <!-- <ol id="main_pageselect">
+                <li><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+                <li><a href="#">6</a></li>
+                <li><a href="#">7</a></li>
+                <li><a href="#">8</a></li>
+                <li><a href="#">9</a></li>
+                <li><a href="#">10</a></li>
+                <li><a href="#">-></a></li>
+
+            </ol> -->
+        </div>
+    </body>
+</html>

@@ -1,0 +1,90 @@
+<html>
+<head>
+    <title>Dashboard Orders</title>
+    {% load staticfiles %}
+    <!-- <link rel="stylesheet" type="text/css" href="./../css/dashboard_allorders.css"> -->
+    <link rel="stylesheet" href="{% static '/dope_records/css/dashboard_allorders.css' %}" media="screen" title="no title">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css" integrity="sha384-AysaV+vQoT3kOAXZkl02PThvDr8HYKPZhNT5h/CXfBThSRXQ6jW5DO2ekP5ViFdi" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js" integrity="sha384-BLiI7JTZm+JWlgKa0M0kGRpJbF2J8q+qreVrKBC47e3K6BW78kGLrCkeRX6I9RoK" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div id="container">
+        <div id="header">
+        <h4>Dashboard</h4>
+        <a href="/dashboard/orders">Orders</a>
+        <a href="/dashboard/products">Products</a>
+        <a id="logoff" href="">log off</a>
+    </div>
+
+    <form id="search_form" action="" method="Post">
+        <input id="search_bar" type='search' name="search" placeholder="Search">
+    </form>
+
+     <select class="custom-select">
+        <option value="showall">Show All</option>
+        <option value="process">Order in Process</option>
+        <option value="cancelled">Cancelled</option>
+        <option value="shipped">Shipped</option>
+     </select>
+
+      <div id="content">
+         <table>
+            <tr>
+               <th id="order">Order ID</th>
+               <th id="name">Name</th>
+               <th id="date">Date</th>
+               <th id="address">Billing Address</th>
+               <th id="total">Total</th>
+               <th id="status">Status</th>
+            </tr>
+            <tr>
+               <td>1</th>
+               <td>Bob</th>
+               <td>10/20/2016</th>
+               <td>1234 Easter Lane WA 98765</th>
+               <td>$200</th>
+               <td>Shipped</th>
+            </tr>
+            <tr>
+               <td>1</th>
+               <td>Bob</th>
+               <td>10/20/2016</th>
+               <td>1234 Easter Lane WA 98765</th>
+               <td>$200</th>
+               <td>Shipped</th>
+            </tr>
+            <tr>
+               <td>1</th>
+               <td>Bob</th>
+               <td>10/20/2016</th>
+               <td>1234 Easter Lane WA 98765</th>
+               <td>$200</th>
+               <td>Shipped</th>
+            </tr>
+            <tr>
+               <td>1</th>
+               <td>Bob</th>
+               <td>10/20/2016</th>
+               <td>1234 Easter Lane WA 98765</th>
+               <td>$200</th>
+               <td>Shipped</th>
+            </tr>
+            {% for order in orders %}
+            <tr>
+               <td>{{order.id}}</td>
+               <td>{{order.user.first_name}}</td>
+               <td>{{order.date}}</td>
+               <td>{{order.billing_info.address}}</td>
+               <td>{{order.total}}</td>
+               <select>
+                  <option value="process">Order in Process</option>
+                  <option value="cancelled">Cancelled</option>
+                  <option value="shipped">Shipped</option>
+               </select>
+            </tr>
+            {% endfor %}
+         </table>
+      </div>
+   </div>
+</body

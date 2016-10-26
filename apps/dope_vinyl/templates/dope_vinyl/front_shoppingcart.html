@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        {% load staticfiles %}
+        <title>All Products</title>
+        <!-- <link rel="stylesheet" href="./../css/front_shoppingcart.css" media="screen" title="no title"> -->
+        <link rel="stylesheet" href="{% static '/dope_records/css/shoppingcart.css' %}" media="screen" title="no title">
+    </head>
+    <body>
+        <div id="nav_bar">
+            <h3>Dojo eCommerce</h3>
+            <a href="#">Shopping Cart (5)</a>
+        </div>
+        <div id="order_list">
+            <table>
+              <tr>
+                <th>Item</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Total</th>
+              </tr>
+              <tr>
+                <td>Will Smith - Big Willie Style</td>
+                <td>$19.99</td>
+                <td>1 <a href="#">update</a> <a href="#">delete</a></td>
+                <td>$19.99</td>
+              </tr>
+              <tr>
+                <td>Miley Cyrus - Dope Hip Hop Album</td>
+                <td>$.99</td>
+                <td>1 <a href="#">update</a> <a href="#">delete</a></td>
+                <td>$.99</td>
+              </tr>
+            </table>
+            <h5>Total: $49.96</h5>
+            <a id="continue_shopping_button" href="#">Continue Shopping</a>
+        </div>
+
+        <h4>Shipping Information</h4>
+        <form class="" action="" method="POST">
+            <label>First Name: <input type="text" name="ship_first_name"></label>
+            <label>Last Name: <input type="text" name="ship_last_name"></label>
+            <label>Address: <input type="text" name="ship_address"></label>
+            <label>Address 2: <input type="text" name="ship_address2"></label>
+            <label>City: <input type="text" name="ship_city"></label>
+            <label>State: <input type="text" name="ship_state"></label>
+            <label>Zipcode: <input type="text" name="ship_zip"></label>
+        <form action="">
+
+        <h4>Billing Information</h4>
+        <label><input type="checkbox" name="same_as_shipping"> Same as Shipping</label>
+        </form>
+        </form>
+            <form class="" action="" method="POST">
+            <label>First Name: <input type="text" name="bill_first_name"></label>
+            <label>Last Name: <input type="text" name="bill_last_name"></label>
+            <label>Address: <input type="text" name="bill_address"></label>
+            <label>Address 2: <input type="text" name="bill_address2"></label>
+            <label>City: <input type="text" name="bill_city"></label>
+            <label>State: <input type="text" name="bill_state"></label>
+            <label>Zipcode: <input type="text" name="bill_zip"></label>
+            <br>
+            <label>Card: <input type="text" name="card" value=""></label>
+            <label>Security Code: <input type="text" name="securitycode" value=""></label>
+            <label>Expiration: <input type="text" name="exp_month" value="(mm)"> / <input type="text" name="exp_year" value="(year)"></label>
+            <input type="submit" value="Pay">
+        </form>
+
+
+
+    </body>
+</html>

@@ -1,0 +1,80 @@
+#container {
+    border: 2px solid green;
+    width: 960px;
+    margin: auto;
+    font-family: helvetica;
+}
+    #header{
+       background-color: #990000;
+       border-style: solid;
+       border-width: medium;
+       padding: 15px;
+       margin-bottom: 20px;
+    }
+    #header a{
+        background-color: #990000;
+        text-decoration: none;
+        margin-left: 10px;
+        color: white;
+    }
+    #header #logoff{
+       margin-left: 620px;
+    }
+#address{
+   padding: 10px;
+   border-style: solid;
+   margin-left: 15px;
+   width: 250px;
+   display: inline-block;
+}
+   .address{
+      line-height: 8px;
+   }
+   .address h4{
+      margin-top: 25px;
+      margin-bottom: 5px;
+   }
+#order{
+    border: 2px dotted red;
+   display: inline-block;
+   vertical-align: top;
+   width: 650px;
+   margin-left: 00px;
+}
+    table{
+       border-style: solid;
+       border-width: medium;
+    }
+    th{
+       background-color: lightgrey;
+    }
+    .order{
+       width: 50px;
+    }
+    th, td{
+       width: 80px;
+       text-align: left;
+    }
+       th #order{
+          width: 60px;
+       }
+    tr:nth-child(odd) {background-color: #e6f2ff}
+
+#status{
+   display: inline-block;
+   vertical-align: top;
+   width: 280px;
+   border-style: solid;
+   margin-top: 25px;
+   padding: 5px;
+   background-color: #b3ffb3;
+}
+#charges{
+   margin-top: 25px;
+   display: inline-block;
+   vertical-align: top;
+   width: 200px;
+   margin-left: 50px;
+   padding: 5px;
+   border-style: solid;
+}
