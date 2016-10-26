@@ -3,7 +3,7 @@
     <title>Dashboard Products</title>
     {% load staticfiles %}
     <!-- <link rel="stylesheet" type="text/css" href="./../css/dashboard_allproducts.css"> -->
-    <link rel="stylesheet" href="{% static '/dope_records/css/dashboard_allproducts.css' %}" media="screen" title="no title">
+    <link rel="stylesheet" href="{% static '/dope_vinyl/css/dashboard_allproducts.css' %}" media="screen" title="no title">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css" integrity="sha384-AysaV+vQoT3kOAXZkl02PThvDr8HYKPZhNT5h/CXfBThSRXQ6jW5DO2ekP5ViFdi" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js" integrity="sha384-BLiI7JTZm+JWlgKa0M0kGRpJbF2J8q+qreVrKBC47e3K6BW78kGLrCkeRX6I9RoK" crossorigin="anonymous"></script>
@@ -29,7 +29,8 @@
             <tr>
                <th>Picture</th>
                <th>ID</th>
-               <th>Name</th>
+               <th>Artist</th>
+               <th>Title</th>
                <th>Inventory Count</th>
                <th>Quantity Sold</th>
                <th>Action</th>
@@ -38,6 +39,7 @@
             <tr>
                 <td><img src="/static/dope_records/{{product.image}}"></td>
                 <td>{{product.id}}</td>
+                <td>{{product.artist}}</td>
                 <td>{{product.title}}</td>
                 <td>{{product.inventory}}</td>
                 <td>{{product.quantity}}</td>
@@ -48,19 +50,21 @@
         </div>
     </div>
 
-<!-- ADD/EDIT PRODUCT FORM WITH BOOTSTRAP & JQUERY-->
+<!-- ADD PRODUCT FORM WITH BOOTSTRAP & JQUERY-->
     <div class = "modal fade" id="addnew" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h3>Edit Product - ID #</h3>
+                    <h3>Add Product</h3>
                     <a id="close" class="btn btn-default" data-dismiss="modal">X</a>
                     <div class = "modal-body">
-                        <form action='edit/{{product.id}}'>
-                            <label>Name <input id="name" type='text' name='title'></label>
+                        <form action='/dashboard/products/add' method="POST">
+                            {% csrf_token %}
+                            <label>Artist <input id="artist" type='text' name='artist'></label>
+                            <label>Title <input id="title" type='text' name='title'></label>
                             <label>Description <input id="description" type='text' name='description'></label>
-                            <label>Categories
-                                <select id="categories" class="custom-select">
+                            <label>Genre
+                                <select id="genre" class="custom-select" name='genre'>
                                     <option selected>SELECT</option>
                                     <option value="hiphop">Hip Hop <a href='edit'>edit</a> <a href='delete'>delete</a></option>
                                     <option value="country">Country <a href='edit'>edit</a> <a href='delete'>delete</a></option>
@@ -68,18 +72,16 @@
                                     <option option value="rock">Rock <a href='edit'>edit</a> <a href='delete'>delete</a></option>
                                 </select>
                             </label>
-                            <label>or add new category: <input id="newcategory" type="text" name='genre'></label>
+                            <label>or add new category: <input id="genre_new" type="text" name='genre_new'></label>
                             <label>Inventory: <input id="inventory" type="text" name='inventory'></label>
                             <div class="form-group">
                                 <label id="fileinput_label" for="InputFile">File input</label>
                                 <input id="fileinput" type="file">
                             </div>
+                            <div id="bottom_links">
+                                <input type="submit" value="Add">
+                            </div>
                         </form>
-                        <div id="bottom_links">
-                            <a class="btn btn-danger" data-dismiss="modal">Cancel</a>
-                            <a class="btn btn-success" data-dismiss="modal">Preview</a>
-                            <a class="btn btn-info" data-dismiss="modal" href="update/{{product.id}}">Update</a>
-                        </div>
                     </div>
                 </div>
             </div>

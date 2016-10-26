@@ -14,13 +14,6 @@ urlpatterns = [
     url(r'^dashboard/products/add$', views.products_add),
     url(r'^dashboard/orders$', views.orders),
     # url(r'^adminlogout$', views.adminlogout),
-
-
-
-
-
-
-
 #     url(r'^home$', views.home),
 #     url(r'^carts$', views.carts),
 #     url(r'^admin$', views.admin),

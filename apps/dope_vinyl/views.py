@@ -90,12 +90,19 @@ def orders(request):
 
 #ALL PRODUCTS ON ADMIN PAGE. CLICK ON ADD NEW PRODUCT TO TAKE YOU TO ADD/EDIT ROUTE.
 def products(request):
-    products = Product.objects.all()
-    print products.values()
+    all_products = Product.objects.all()
+    print all_products
     context = {
-        "products": products
+        "all_products": all_products
     }
     return render(request, 'dope_vinyl/dashboard_allproducts.html', context)
 
 def products_add(request):
-    return redirect("/dashboard/products/insert")
+    if request.method == "POST":
+        if request.POST['genre_new'] != "":
+            Product.objects.create(title=request.POST['title'],description=request.POST['description'],genre=request.POST['genre_new'], inventory=request.POST['inventory'])
+
+        elif request.POST['genre'] != "":
+            Product.objects.create(artist=request.POST['artist'], title=request.POST['title'],description=request.POST['description'],genre=request.POST['genre'], inventory=request.POST['inventory'])
+
+    return redirect("/dashboard/products")

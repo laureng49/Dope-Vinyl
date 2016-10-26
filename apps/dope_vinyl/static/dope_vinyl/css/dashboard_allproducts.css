@@ -108,14 +108,19 @@ h3 {
 #close{
     display: inline-block;
     vertical-align: top;
-    margin: 0px 0px 0px 315px;
+    margin: 0px 0px 0px 390px;
     padding: 0px;
     font-size: 20px;
     color: blue;
 }
 
-#name {
+#artist {
     margin-left: 130px;
+    padding-right: 135px;
+}
+
+#title {
+    margin-left: 140px;
     padding-right: 135px;
 }
 
@@ -125,12 +130,12 @@ h3 {
     padding-right: 135px;
 }
 
-#categories {
-    margin-left: 88px;
+#genre {
+    margin-left: 127px;
     padding-right: 163px;
 }
 
-#newcategory {
+#genre_new {
     margin-left: 6px;
     padding-right: 137px;
 }
