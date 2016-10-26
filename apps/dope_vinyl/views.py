@@ -8,6 +8,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 #MACKENZIE IS MAKING A CHANGE
 #another one
 #add something
+#MACKENZIE AGAIN
 
 def home(request):
     context = {'records' : Product.objects.all()}
