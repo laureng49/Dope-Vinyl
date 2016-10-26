@@ -9,6 +9,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 #another one
 #add something
 #Justin Made another change
+#MACKENZIE AGAIN
 
 def home(request):
     context = {'records' : Product.objects.all()}
