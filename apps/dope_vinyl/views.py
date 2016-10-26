@@ -75,7 +75,7 @@ def adminlogin(request):
 
        else:
            # request.session['admin'] = admin.id
-           return redirect('/dashboard_allorders')
+           return redirect('/dashboard/orders')
    return redirect('/admin')
 
 ### we put one admin into the DB's Admin table.
