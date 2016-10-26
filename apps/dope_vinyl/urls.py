@@ -14,6 +14,13 @@ urlpatterns = [
     url(r'^dashboard/products/add$', views.products_add),
     url(r'^dashboard/orders$', views.orders),
     # url(r'^adminlogout$', views.adminlogout),
+    url(r'^carts$', views.carts),
+
+
+
+
+
+>>>>>>> a6a5c26f2b3fb9340b80c219fd2033e2fc2c9941
 #     url(r'^home$', views.home),
 #     url(r'^carts$', views.carts),
 #     url(r'^admin$', views.admin),

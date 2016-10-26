@@ -5,7 +5,7 @@
         {% load staticfiles %}
         <title>All Products</title>
         <!-- <link rel="stylesheet" href="./../css/front_allproducts.css" media="screen" title="no title"> -->
-        <link rel="stylesheet" href="{% static '/dope_records/css/front_allproducts.css' %}" media="screen" title="no title">
+        <link rel="stylesheet" href="{% static '/dope_vinyl/css/front_allproducts.css' %}" media="screen" title="no title">
     </head>
     <body>
         <div id="nav_bar">
@@ -20,7 +20,7 @@
             <h4>Categories</h4>
             <ul>
                {% for genre in genres %}
-               <li><a href="{{genre.id}}">{{genre.genre_type}}</a></li>
+               <li><a href="front_allproducts/category/{{genre.id}}">{{genre.genre_type}}</a></li>
                {% endfor %}
             </ul>
         </div>
@@ -51,8 +51,8 @@
             <div id="records">
                <ul id="main_thumbnails">
                   {% for product in products %}
-                   <a href=""><li><img id="images" src="static/dope_records/{{product.image}}"><p class="title">{{product.title}}</li></a>
-                   {% endfor %}
+                  <a href=""><li><img id="images" src="/static/dope_vinyl/{{product.image}}"><p class="title">{{product.title}}</li></a>
+                  {% endfor %}
                </ul>
             </div>
             <div class="pagination2">
