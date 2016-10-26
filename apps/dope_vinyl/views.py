@@ -10,9 +10,9 @@ def home(request):
     return render(request, "dope_vinyl/home.html", context)
 
 def add_records(request):
-    genre = Genre.objects.create(genre_type="Country")
-    artist = Artist.objects.create(name="Johnny Cash")
-    Product.objects.create(genre=genre,image='imgs/Music/Country/JohnnyCash.jpg',artist=artist,title = "At Folsom Prison", price='29.99',inventory="100")
+    genre = Genre.objects.create(genre_type="Pop")
+    artist = Artist.objects.create(name="Lady Gaga")
+    Product.objects.create(genre=genre,image='imgs/Music/Pop/LadyGaga.jpg',artist=artist,title = "Joanne", price='29.99',inventory="100", description="dope record")
     return redirect('/')
 
 def front_allproducts(request):
@@ -32,7 +32,7 @@ def front_allproducts(request):
     }
     return render(request, "dope_vinyl/front_allproducts.html", context)
 
-def front_allproducts_cat(id):
+def front_allproducts_cat(request, id):
     products = Product.objects.filter(genre=id)
     paginator = Paginator(products,15)
     page = request.GET.get('page')
@@ -42,12 +42,12 @@ def front_allproducts_cat(id):
         products = paginator.page(1)
     except EmptyPage:
         products = paginator.page(paginator.num_pages)
-    genres = Genre.objects.get(id=id)
+    genres = Genre.objects.filter(id=id)
     context = {
         'products' : products,
         'genres' : genres,
     }
-    return redirect('/front_allproducts')
+    return render(request, "dope_vinyl/front_allproducts.html", context)
 
 def carts(request):
 
