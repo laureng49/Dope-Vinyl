@@ -6,6 +6,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 ###################################### USER ####################################################
 
 #MACKENZIE IS MAKING A CHANGE
+#another one
 
 def home(request):
     context = {'records' : Product.objects.all()}
