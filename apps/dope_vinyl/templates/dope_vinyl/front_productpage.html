@@ -18,7 +18,7 @@
 
         <h2>{{product.artist.name}} - {{product.title}}</h2>
 
-        <img id="thumbnail" src="/static/dope_vinyl/{{product.image}}" alt="" />
+        <img id="thumbnail" src="/static/dope_vinyl/imgs/uploaded_media/{{product.image}}" alt="" />
 
         <div id="content">
             <p id="content_description">
@@ -37,7 +37,7 @@
         <h4>Similar Items</h4>
         <ul>
            {% for product in similar_products %}
-            <li><img id='similar' src="/static/dope_vinyl/{{product.image}}" alt="" /><a href="#">{{product.title}}</a></li>
+            <li><img id='similar' src="/static/dope_vinyl/imgs/uploaded_media/{{product.image}}" alt="" /><a href="#">{{product.title}}</a></li>
             {% endfor %}
         </ul>
     </body>

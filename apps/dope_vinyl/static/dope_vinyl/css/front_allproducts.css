@@ -108,11 +108,11 @@ li {
       padding-left: 10px;
    }
     #main_thumbnails li {
-        border: 1px dotted blue;
+        border: 1px solid black;
         display: inline-block;
         width: 130px;
         height: 130px;
-        margin-bottom: 20px;
+        margin-bottom: 30px;
         margin: 3px;
     }
      p.title{
