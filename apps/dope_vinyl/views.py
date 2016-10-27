@@ -10,9 +10,9 @@ def home(request):
     return render(request, "dope_vinyl/home.html", context)
 
 def add_records(request):
-    genre = Genre.objects.create(genre_type="Pop")
-    artist = Artist.objects.create(name="Lady Gaga")
-    Product.objects.create(genre=genre,image='imgs/Music/Pop/LadyGaga.jpg',artist=artist,title = "Joanne", price='29.99',inventory="100", description="dope record")
+    genre = Genre.objects.filter(genre_type="Pop")[0]
+    artist = Artist.objects.create(name="Taylor Swift")
+    Product.objects.create(genre=genre,image='imgs/Music/Pop/TaylorSwift.jpg',artist=artist,title = "T.S. 1989", price='19.99',inventory="100", description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras ullamcorper, arcu sed interdum ullamcorper, purus diam scelerisque arcu, eget tristique ligula odio sed orci. Pellentesque quis eros in tellus dignissim rutrum. Suspendisse mattis venenatis velit. Nulla faucibus sagittis rhoncus. Praesent consequat et nisl sed facilisis. Vestibulum eget diam massa. Praesent arcu augue, pretium vel libero nec, congue bibendum tortor. Ut id condimentum dui. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Etiam rutrum, ipsum ac interdum ultrices, elit elit suscipit sem, sed mattis augue velit sit amet neque. Aenean id velit enim. Sed fringilla accumsan orci eget sagittis. In nisl mi, dictum sit amet massa vitae, auctor ullamcorper ligula.")
     return redirect('/')
 
 def front_allproducts(request):
@@ -48,6 +48,19 @@ def front_allproducts_cat(request, id):
         'genres' : genres,
     }
     return render(request, "dope_vinyl/front_allproducts.html", context)
+
+def front_productpage(request, id):
+    product = Product.objects.get(id=id)
+    similar_products = Product.objects.filter(genre=product.genre)
+    context = {
+        'product': product,
+        'similar_products': similar_products
+        }
+    return render(request, "dope_vinyl/front_productpage.html", context)
+
+def buy(request, id):
+
+    return redirect('/front_allproducts')
 
 def carts(request):
 
@@ -87,13 +100,27 @@ def orders(request):
     return render(request, 'dope_vinyl/dashboard_allorders.html')
 
 #ALL PRODUCTS ON ADMIN PAGE. CLICK ON ADD NEW PRODUCT TO TAKE YOU TO ADD/EDIT ROUTE.
+
 def products(request):
-    products = Product.objects.all()
-    print products.values()
+    all_products = Product.objects.all()
+    all_genres = Genre.objects.filter()
+
     context = {
-        "products": products
+        "all_products": all_products,
+        "all_genres": all_genres
     }
     return render(request, 'dope_vinyl/dashboard_allproducts.html', context)
 
 def products_add(request):
-    return redirect("/dashboard/products/insert")
+    if request.method == "POST":
+        if request.POST['genre_new'] != "":
+            artist_name = Artist.objects.create(name=request.POST['artist'])
+            genre_type = Genre.objects.create(genre_type=request.POST['genre_new'])
+            Product.objects.create(artist=artist_name, title=request.POST['title'],description=request.POST['description'],genre=genre_type, price=request.POST['price'], inventory=request.POST['inventory'], image=request.FILES['image'])
+
+        elif request.POST['genre'] != "":
+            artist_name = Artist.objects.create(name=request.POST['artist'])
+            genre_type = Genre.objects.filter(genre_type=request.POST['genre'])[0]
+            Product.objects.create(artist=artist_name, title=request.POST['title'],description=request.POST['description'],genre=genre_type, price=request.POST['price'], inventory=request.POST['inventory'], image=request.FILES['image'])
+
+    return redirect("/dashboard/products")
