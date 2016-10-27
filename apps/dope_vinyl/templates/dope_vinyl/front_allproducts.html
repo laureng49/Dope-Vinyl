@@ -14,8 +14,8 @@
         </div>
         <div id="left_box">
             <form class="" action="index.html" value="product name" method="post">
-                <input type="text" name="product_name" value="">
-                <input type="submit" name="name" value="Search">
+                <input type="text" name="product_name" value="product_name">
+                <input type="submit" name="name" value="&#x1f50e;">
             </form>
             <h4>Categories</h4>
             <ul>
@@ -45,18 +45,20 @@
                      {% endif %}
                   </span>
                </div>
-                <span id="sort">Sorted by </span><form class="" action="index.html" method="post">
-                        <select name="sort" onchange="/">
-                           <option value="artist">Artist Name</option>
-                            <option value="price">Price</option>
-                            <option value="most_popular">Most Popular</option>
+                <span id="sort">Sorted by </span><form name="sort" method="POST">
+                   {% csrf_token %}
+                        <select name="sort" onchange="form.submit()">
+                           <option value="title" {% if sort_current == 'title' %}selected{% endif %}>Title</option>
+                           <option value="artist" {% if sort_current == 'artist' %}selected{% endif %}>Artist Name</option>
+                           <option value="price" {% if sort_current == 'price' %}selected{% endif %}>Price</option>
+                           <option value="popularity" {% if sort_current == 'popularity' %}selected{% endif %}>Most Popular</option>
                         </select>
                 </form>
             </div>
             <div id="records">
                <ul id="main_thumbnails">
                   {% for product in products %}
-                  <a href="/front_productpage/show/{{product.id}}"><li><img id="images" src="/static/dope_vinyl/imgs/uploaded_media/{{product.image}}"><p class="title">{{product.title}}</p></li></a>
+                  <a href="/front_productpage/show/{{product.id}}"><li><img id="images" src="/static/dope_vinyl/imgs/uploaded_media/{{product.image}}"><p class="title">{{product.artist.name}} - {{product.title}}</p></li></a>
                   {% endfor %}
                </ul>
             </div>
@@ -73,21 +75,6 @@
                   {% endif %}
                </span>
             </div>
-
-            <!-- <ol id="main_pageselect">
-                <li><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li><a href="#">6</a></li>
-                <li><a href="#">7</a></li>
-                <li><a href="#">8</a></li>
-                <li><a href="#">9</a></li>
-                <li><a href="#">10</a></li>
-                <li><a href="#">-></a></li>
-
-            </ol> -->
         </div>
     </body>
 </html>
