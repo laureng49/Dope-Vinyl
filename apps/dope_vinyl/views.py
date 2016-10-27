@@ -120,7 +120,7 @@ def products_add(request):
 
         elif request.POST['genre'] != "":
             artist_name = Artist.objects.create(name=request.POST['artist'])
-            genre_type = Genre.objects.filter(genre_type=request.POST['genre'])[0]
+            genre_type = Genre.objects.get(genre_type=request.POST['genre'])
             Product.objects.create(artist=artist_name, title=request.POST['title'],description=request.POST['description'],genre=genre_type, price=request.POST['price'], inventory=request.POST['inventory'], image=request.FILES['image'])
 
     return redirect("/dashboard/products")
