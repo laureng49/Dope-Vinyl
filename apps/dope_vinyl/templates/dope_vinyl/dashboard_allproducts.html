@@ -42,7 +42,7 @@
                 <td><a href="#">{{product.id}}</a></td>
                 <td>{{product.artist.name}}</td>
                 <td>{{product.title}}</td>
-                <td>{{product.price}}</td>
+                <td>${{product.price}}</td>
                 <td>{{product.inventory}}</td>
                 <td>{{product.quantity}}</td>
                 <td><a href="/edit/{{product.id}}">Edit</a> / <a href="/delete/{{product.id}}">Delete</a></td>
@@ -68,7 +68,7 @@
                                 <select id="genre" class="custom-select" name='genre'>
                                     <option selected>SELECT</option>
                                     {% for genre in all_genres %}
-                                    <option value="rock">{{genre.genre_type}}</option>
+                                    <option value="{{genre.genre_type}}">{{genre.genre_type}}</option>
                                     {% endfor %}
                                 </select>
                             </label>
