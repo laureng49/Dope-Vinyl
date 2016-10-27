@@ -87,20 +87,27 @@ def orders(request):
     return render(request, 'dope_vinyl/dashboard_allorders.html')
 
 #ALL PRODUCTS ON ADMIN PAGE. CLICK ON ADD NEW PRODUCT TO TAKE YOU TO ADD/EDIT ROUTE.
+
 def products(request):
     all_products = Product.objects.all()
-    print all_products
+    all_genres = Genre.objects.filter()
+
     context = {
-        "all_products": all_products
+        "all_products": all_products,
+        "all_genres": all_genres
     }
     return render(request, 'dope_vinyl/dashboard_allproducts.html', context)
 
 def products_add(request):
     if request.method == "POST":
         if request.POST['genre_new'] != "":
-            Product.objects.create(title=request.POST['title'],description=request.POST['description'],genre=request.POST['genre_new'], inventory=request.POST['inventory'])
+            artist_name = Artist.objects.create(name=request.POST['artist'])
+            genre_type = Genre.objects.create(genre_type=request.POST['genre_new'])
+            Product.objects.create(artist=artist_name, title=request.POST['title'],description=request.POST['description'],genre=genre_type, price=request.POST['price'], inventory=request.POST['inventory'], image=request.FILES['image'])
 
         elif request.POST['genre'] != "":
-            Product.objects.create(artist=request.POST['artist'], title=request.POST['title'],description=request.POST['description'],genre=request.POST['genre'], inventory=request.POST['inventory'])
+            artist_name = Artist.objects.create(name=request.POST['artist'])
+            genre_type = Genre.objects.filter(genre_type=request.POST['genre'])[0]
+            Product.objects.create(artist=artist_name, title=request.POST['title'],description=request.POST['description'],genre=genre_type, price=request.POST['price'], inventory=request.POST['inventory'], image=request.FILES['image'])
 
     return redirect("/dashboard/products")
