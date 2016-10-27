@@ -59,8 +59,8 @@ html {
 table {
     border: 1px solid black;
     margin-top: 50px;
-    width: 1100px;
-    margin-left: 100px;
+    width: 1200px;
+    margin-left: 62px;
     margin-bottom: 100px;
     padding-bottom: 300px;
 }
@@ -70,6 +70,7 @@ table {
         text-align: left;
         margin: 10px 0px;
         padding-right: 30px;
+        font-weight: bold;
     }
 
     td {
@@ -134,17 +135,17 @@ h3 {
 
 #genre {
     margin-left: 127px;
-    padding-right: 163px;
+    padding-right: 248px;
 }
 
 #genre_new {
-    margin-left: 6px;
+    margin-left: 30px;
     padding-right: 137px;
 }
 
 #price {
-    margin-left: 6px;
-    padding-right: 128px;
+    margin-left: 128px;
+    padding-right: 137px;
 }
 
 #inventory {
@@ -159,7 +160,7 @@ h3 {
 
 #fileinput {
     display: inline-block;
-    width: 100px;
+    width: 325px;
     margin-left: 75px;
     border: 1px solid grey;
 }
@@ -167,9 +168,13 @@ h3 {
 #bottom_links {
     margin-left: 250px;
     color: white;
-    margin-top: 50px;
+    margin-top: 0px;
     text-align: left;
 }
+
+    #submit_button {
+        margin-left: 190px;
+    }
 
     .btn {
         color: white;
