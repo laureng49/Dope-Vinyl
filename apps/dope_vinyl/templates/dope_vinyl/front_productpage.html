@@ -5,7 +5,7 @@
         {% load staticfiles %}
         <title>Product Page</title>
         <!-- <link rel="stylesheet" href="./../css/front_productpage.css" media="screen" title="no title"> -->
-        <link rel="stylesheet" href="{% static '/dope_records/css/productpage.css' %}" media="screen" title="no title">
+        <link rel="stylesheet" href="{% static '/dope_vinyl/css/front_productpage.css' %}" media="screen" title="no title">
     </head>
     <body>
         <div id="nav_bar">
@@ -13,36 +13,31 @@
             <a href="#">Shopping Cart (5)</a>
         </div>
 
-        <a id="go_back" href="#">Go Back</a>
+        <a id="go_back" href="/front_allproducts">Go Back</a>
 
-        <h2>R. Kelly - Trapped In the Closet</h2>
+        <h2>{{product.artist.name}} - {{product.title}}</h2>
 
-        <img id="thumbnail" src="http://www.sputnikmusic.com/images/albums/9216.jpg" alt="" />
+        <img id="thumbnail" src="/static/dope_vinyl/{{product.image}}" alt="" />
 
         <div id="content">
             <p id="content_description">
-                The path of the righteous man is beset on all sides by the iniquities of the selfish and the tyranny of evil men. Blessed is he who, in the name of charity and good will, shepherds the weak through the valley of darkness, for he is truly his brother's keeper and the finder of lost children. And I will strike down upon thee with great vengeance and furious anger those who would attempt to poison and destroy My brothers. And you will know My name is the Lord when I lay My vengeance upon thee.
-
-                Yeah, I like animals better than people sometimes... Especially dogs. Dogs are the best. Every time you come home, they act like they haven't seen you in a year. And the good thing about dogs... is they got different dogs for different people. Like pit bulls. The dog of dogs. Pit bull can be the right man's best friend... or the wrong man's worst enemy. You going to give me a dog for a pet, give me a pit bull. Give me... Raoul. Right, Omar? Give me Raoul.
+                {{product.description}}
             </p>
-            <form class="" action="index.html" method="post">
+            <form class="" action="/front_productpage/buy/{{product.id}}" method="post">
+                {% csrf_token %}
                 <select>
-                    <option value="1">1 ($19.99)</option>
-                    <option value="2">2 ($39.99)</option>
-                    <option value="3">3 ($59.99)</option>
+                    <option value="1">1  ${{product.price}}</option>
+                    <option value="2">2  ${{product.price}}</option>
+                    <option value="3">3  ${{product.price}}</option>
                 </select>
                 <input type="submit" value="Buy">
             </form>
         </div>
-        <h4>Similar Item</h4>
+        <h4>Similar Items</h4>
         <ul>
-            <li><img src="" alt="" /><a href="#">Place holder</a></li>
-            <li><img src="" alt="" /><a href="#">Place holder</a></li>
-            <li><img src="" alt="" /><a href="#">Place holder</a></li>
-            <li><img src="" alt="" /><a href="#">Place holder</a></li>
-            <li><img src="" alt="" /><a href="#">Place holder</a></li>
-            <li><img src="" alt="" /><a href="#">Place holder</a></li>
-            <li><img src="" alt="" /><a href="#">Place holder</a></li>
+           {% for product in similar_products %}
+            <li><img id='similar' src="/static/dope_vinyl/{{product.image}}" alt="" /><a href="#">{{product.title}}</a></li>
+            {% endfor %}
         </ul>
     </body>
 </html>

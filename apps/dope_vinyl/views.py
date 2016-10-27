@@ -5,22 +5,14 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 ###################################### USER ####################################################
 
-#MACKENZIE IS MAKING A CHANGE
-#another one
-#add something
-#Justin Making another change
-#Justin Made another change
-#MACKENZIE AGAIN
-# Anderson Test
-
 def home(request):
     context = {'records' : Product.objects.all()}
     return render(request, "dope_vinyl/home.html", context)
 
 def add_records(request):
-    genre = Genre.objects.create(genre_type="Country")
-    artist = Artist.objects.create(name="Johnny Cash")
-    Product.objects.create(genre=genre,image='imgs/Music/Country/JohnnyCash.jpg',artist=artist,title = "At Folsom Prison", price='29.99',inventory="100")
+    genre = Genre.objects.filter(genre_type="Pop")[0]
+    artist = Artist.objects.create(name="Taylor Swift")
+    Product.objects.create(genre=genre,image='imgs/Music/Pop/TaylorSwift.jpg',artist=artist,title = "T.S. 1989", price='19.99',inventory="100", description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras ullamcorper, arcu sed interdum ullamcorper, purus diam scelerisque arcu, eget tristique ligula odio sed orci. Pellentesque quis eros in tellus dignissim rutrum. Suspendisse mattis venenatis velit. Nulla faucibus sagittis rhoncus. Praesent consequat et nisl sed facilisis. Vestibulum eget diam massa. Praesent arcu augue, pretium vel libero nec, congue bibendum tortor. Ut id condimentum dui. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Etiam rutrum, ipsum ac interdum ultrices, elit elit suscipit sem, sed mattis augue velit sit amet neque. Aenean id velit enim. Sed fringilla accumsan orci eget sagittis. In nisl mi, dictum sit amet massa vitae, auctor ullamcorper ligula.")
     return redirect('/')
 
 def front_allproducts(request):
@@ -40,7 +32,7 @@ def front_allproducts(request):
     }
     return render(request, "dope_vinyl/front_allproducts.html", context)
 
-def front_allproducts_cat(id):
+def front_allproducts_cat(request, id):
     products = Product.objects.filter(genre=id)
     paginator = Paginator(products,15)
     page = request.GET.get('page')
@@ -50,12 +42,34 @@ def front_allproducts_cat(id):
         products = paginator.page(1)
     except EmptyPage:
         products = paginator.page(paginator.num_pages)
-    genres = Genre.objects.get(id=id)
+    genres = Genre.objects.filter(id=id)
     context = {
         'products' : products,
         'genres' : genres,
     }
+    return render(request, "dope_vinyl/front_allproducts.html", context)
+
+def front_productpage(request, id):
+    product = Product.objects.get(id=id)
+    similar_products = Product.objects.filter(genre=product.genre)
+    context = {
+        'product': product,
+        'similar_products': similar_products
+        }
+    return render(request, "dope_vinyl/front_productpage.html", context)
+
+def buy(request, id):
+
     return redirect('/front_allproducts')
+
+def carts(request):
+
+
+
+
+    return render(request, "dope_vinyl/front_shoppingcart.html")
+
+
 
 ###################################### ADMIN ###################################################
 def admin(request):
@@ -68,13 +82,12 @@ def adminlogin(request):
        admin = Admin.objects.login(request.POST)
        # print admin.values()
        # logged_admin = Admin.objects.get(id=request.session['logged_admin'])
-
        if not admin:
            messages.error(request, "Invalid login credentials!")
 
        else:
            # request.session['admin'] = admin.id
-           return redirect('/dashboard_allorders')
+           return redirect('/dashboard/orders')
    return redirect('/admin')
 
 ### we put one admin into the DB's Admin table.
