@@ -28,7 +28,7 @@ li {
 }
 
 #left_box {
-    border: 3px solid black;
+    border: 1px solid black;
     display: inline-block;
     margin-top: 20px;
     margin-right: 15px;
@@ -65,11 +65,12 @@ li {
     vertical-align: top;
     margin-top: 20px;
     padding: 10px;
-    border-style: solid;
+    border: 1px solid black;
 }
    #main_top #sort{
       margin-left: 550px;
-      display: inline-block;;
+      display: inline-block;
+      margin-right: 5px;
    }
    #main_top form{
       display: inline-block;;
@@ -79,12 +80,12 @@ li {
     #main_top h2 {
         display: inline-block;
         margin: 0px 0px 0px 35px;
-        width: 500px;
+        width: 580px;
         vertical-align: top;
     }
     #main_top #pagination1 {
         display: inline-block;
-        width: 200px;
+        width: 110px;
         vertical-align: top;
     }
     #main_top ul {
@@ -112,17 +113,20 @@ li {
         display: inline-block;
         width: 130px;
         height: 130px;
-        margin-bottom: 30px;
+        margin-bottom: 40px;
         margin: 3px;
     }
      p.title{
-      margin: 0px;
-     padding: 0px;
-     font-size: 12px;
-     width: 130px;
-     text-decoration: none;
-     color: black;
-   }
+        margin: 0px;
+        padding: 0px;
+        font-size: 12px;
+        display: block;
+        height: 30px;
+        width: 130px;
+        text-decoration: none;
+        color: black;
+        overflow: hidden;
+    }
     img#images{
       width: 130px;
       height: 130px;
@@ -134,5 +138,5 @@ li {
     }
     #records{
       width: 770px;
-      height: 500px;
+      height: 530px;
    }

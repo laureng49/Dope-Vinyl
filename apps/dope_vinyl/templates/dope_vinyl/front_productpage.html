@@ -31,13 +31,13 @@
                     <option value="2">2  ${{product.price}}</option>
                     <option value="3">3  ${{product.price}}</option>
                 </select>
-                <input type="submit" value="Buy">
+                <input id='buy' type="submit" value="Buy">
             </form>
         </div>
         <h4>Similar Items</h4>
         <ul>
            {% for product in similar_products %}
-            <li><img id='similar' src="/static/dope_vinyl/imgs/uploaded_media/{{product.image}}" alt="" /><a href="#">{{product.title}}</a></li>
+            <li><a id='similar' href="/front_productpage/show/{{product.id}}"><img id='similar' src="/static/dope_vinyl/imgs/uploaded_media/{{product.image}}" alt="">{{product.title}}</a></li>
             {% endfor %}
         </ul>
     </body>
