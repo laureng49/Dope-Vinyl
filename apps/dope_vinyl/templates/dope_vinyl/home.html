@@ -11,7 +11,7 @@
     <body>
         <div id="nav_bar">
             <h3>Dojo eCommerce</h3>
-            <a href="#">Shopping Cart (5)</a>
+            <a href="/carts">Shopping Cart (5)</a>
         </div>
 
         <div id="main">
@@ -20,10 +20,10 @@
         </div>
         <!-- Keeping the below for adding in products for testing purposes -->
         <!-- <a href="add_records">Add a record</a>
-        <a href="show">Show</a> -->
-        <!-- {% for record in records %}
+        <a href="show">Show</a>
+        {% for record in records %}
         <p>{{record.title}} {{record.artist.name}} {{record.image}} {{record.genre.genre_type}} {{record.inventory}}</p>
         {% endfor %} -->
-        <p><a href="front_allproducts">Click Here to Browse Our Products</a></p>
+        <p><a id="click" href="front_allproducts">Click Here to Browse Our Products</a></p>
     </body>
 </html>

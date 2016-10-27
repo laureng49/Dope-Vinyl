@@ -49,6 +49,7 @@ h2 {
         display: inline-block;
         vertical-align: top;
         width: 450px;
+        height: 400px;
         margin-top: 0px;
         margin-left: 100px;
     }
@@ -77,4 +78,8 @@ li {
     list-style: none;
     width: 110px;
     height: 110px;
+}
+img#similar{
+   width: 110px;
+   height: 110px;
 }
