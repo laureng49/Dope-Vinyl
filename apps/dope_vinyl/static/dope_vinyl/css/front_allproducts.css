@@ -120,6 +120,8 @@ li {
      padding: 0px;
      font-size: 12px;
      width: 130px;
+     text-decoration: none;
+     color: black;
    }
     img#images{
       width: 130px;
