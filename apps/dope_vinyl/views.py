@@ -97,7 +97,14 @@ def adminlogin(request):
 ############################################### DASHBOARD #######################################
 #ALL ORDERS ON ADMIN PAGE.
 def orders(request):
+
     return render(request, 'dope_vinyl/dashboard_allorders.html')
+
+
+#INDIVIDUAL ORDER ON ADMIN PAGE.
+def show_orders(request):
+
+    return render(request, 'dope_vinyl/dashboard_showorder.html')
 
 #ALL PRODUCTS ON ADMIN PAGE. CLICK ON ADD NEW PRODUCT TO TAKE YOU TO ADD/EDIT ROUTE.
 
@@ -126,15 +133,19 @@ def products_add(request):
     return redirect("/dashboard/products")
 
 def products_edit(request):
+
     if request.method == "POST":
         if request.POST['genre_new'] != "":
-            artist_name = Artist.objects.create(name=request.POST['artist'])
-            genre_type = Genre.objects.create(genre_type=request.POST['genre_new'])
-            Product.objects.create(artist=artist_name, title=request.POST['title'],description=request.POST['description'],genre=genre_type, price=request.POST['price'], inventory=request.POST['inventory'], image=request.FILES['image'])
+            genre_type = request.POST['genre_new']
+            Product.objects.get(id=request.POST['id']).update(artist=artist_name, title=request.POST['title'],description=request.POST['description'],genre=genre_type, price=request.POST['price'], inventory=request.POST['inventory'], image=request.FILES['image'])
 
         elif request.POST['genre'] != "":
-            artist_name = Artist.objects.create(name=request.POST['artist'])
-            genre_type = Genre.objects.get(genre_type=request.POST['genre'])
-            Product.objects.create(artist=artist_name, title=request.POST['title'],description=request.POST['description'],genre=genre_type, price=request.POST['price'], inventory=request.POST['inventory'], image=request.FILES['image'])
+            genre_type = request.POST['genre']
+            Product.objects.get(id=request.POST['id']).update(artist=artist_name, title=request.POST['title'],description=request.POST['description'],genre=genre_type, price=request.POST['price'], inventory=request.POST['inventory'], image=request.FILES['image'])
 
+    return redirect("/dashboard/products")
+
+
+def products_delete(request, id):
+    Product.objects.get(id=id).delete()
     return redirect("/dashboard/products")
