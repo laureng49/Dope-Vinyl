@@ -84,31 +84,42 @@ def admin(request):
 
 
 def adminlogin(request):
-   #either they're good at logging in or not
    if request.method == "POST":
        admin = Admin.objects.login(request.POST)
-       # print admin.values()
-       # logged_admin = Admin.objects.get(id=request.session['logged_admin'])
+       #then goes to models login
        if not admin:
            messages.error(request, "Invalid login credentials!")
-
        else:
-           # request.session['admin'] = admin.id
+           request.session['logged_admin'] = admin.id
            return redirect('/dashboard/orders')
    return redirect('/admin')
 
 ### we put one admin into the DB's Admin table.
 ###     The login is: dope.vinyl.admin@gmail.com (all lowercase)
 ###     The password is: dope (all lowercase)
+def adminlogout(request):
+    if 'logged_admin' in request.session:
+        request.session.pop('logged_admin')
+    return redirect('/admin')
 
 ############################################### DASHBOARD #######################################
 #ALL ORDERS ON ADMIN PAGE.
 def orders(request):
-    return render(request, 'dope_vinyl/dashboard_allorders.html')
+    if 'logged_admin' not in request.session:
+        messages.error(request, "Gotta login bro")
+        return redirect('/adminlogin')
+    context = {
+        'admin': Admin.objects.get(id=request.session['logged_admin'])
+    }
+
+    return render(request, 'dope_vinyl/dashboard_allorders.html', context)
 
 #ALL PRODUCTS ON ADMIN PAGE. CLICK ON ADD NEW PRODUCT TO TAKE YOU TO ADD/EDIT ROUTE.
 
 def products(request):
+    if 'logged_admin' not in request.session:
+        messages.error(request, "Gotta login bro")
+        return redirect('/adminlogin')
     all_products = Product.objects.all()
     all_genres = Genre.objects.filter()
 
