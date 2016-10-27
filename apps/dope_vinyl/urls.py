@@ -12,6 +12,7 @@ urlpatterns = [
     url(r'^front_productpage/buy/(?P<id>\d+)$', views.buy),
     url(r'^admin$', views.admin),
     url(r'^adminlogin$', views.adminlogin),
+    url(r'^adminlogout$', views.adminlogout),
     url(r'^dashboard/products$', views.products), #TEMPLATE
     url(r'^dashboard/products/add$', views.products_add),
     url(r'^dashboard/orders$', views.orders),
