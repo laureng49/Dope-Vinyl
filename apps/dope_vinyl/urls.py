@@ -8,6 +8,7 @@ urlpatterns = [
     url(r'^front_allproducts$', views.front_allproducts),
     url(r'^front_allproducts/page(?P<page>[0-9]+)/$', views.front_allproducts),
     url(r'^front_allproducts/category/(?P<id>\d+)$', views.front_allproducts_cat),
+    # url(r'^sort_products/(?P<id>\w+)$', views.sort_products),
     url(r'^front_productpage/show/(?P<id>\d+)$', views.front_productpage),
     url(r'^front_productpage/buy/(?P<id>\d+)$', views.buy),
     url(r'^admin$', views.admin),
@@ -15,6 +16,7 @@ urlpatterns = [
     url(r'^adminlogout$', views.adminlogout),
     url(r'^dashboard/products$', views.products), #TEMPLATE
     url(r'^dashboard/products/add$', views.products_add),
+    url(r'^dashboard/products/edit/(?P<id>\d+)$', views.products_edit),
     url(r'^dashboard/orders$', views.orders),
     # url(r'^adminlogout$', views.adminlogout),
     url(r'^carts$', views.carts),

@@ -22,6 +22,7 @@
                {% for genre in genres %}
                <li><a href="front_allproducts/category/{{genre.id}}">{{genre.genre_type}}</a></li>
                {% endfor %}
+               <li><a href="/front_allproducts">Show All</a>
             </ul>
         </div>
         <div id="main">
@@ -30,18 +31,22 @@
                 <div id="pagination1">
                   <span class="step-links">
                      {% if products.has_previous %}
-                     <a href="?page={{products.previous_page_number}}">previous</a>
+                     <a href="?page={{products.previous_page_number}}">prev</a>
+                     {% else %}
+                     <span>prev</span>
                      {% endif %}
                      <span class="current">
-                     Page {{products.number}} of {{products.paginator.num_pages}}
+                     | {{products.number}} |
                      </span>
                      {% if products.has_next %}
                      <a href="?page={{products.next_page_number}}">next</a>
+                     {% else %}
+                     <span>next</span>
                      {% endif %}
                   </span>
                </div>
-                <span id="sort">Sorted by</span><form class="" action="index.html" method="post">
-                        <select>
+                <span id="sort">Sorted by </span><form class="" action="index.html" method="post">
+                        <select name="sort" onchange="/">
                            <option value="artist">Artist Name</option>
                             <option value="price">Price</option>
                             <option value="most_popular">Most Popular</option>
@@ -51,7 +56,7 @@
             <div id="records">
                <ul id="main_thumbnails">
                   {% for product in products %}
-                  <a href="/front_productpage/show/{{product.id}}"><li><img id="images" src="/static/dope_vinyl/{{product.image}}"><p class="title">{{product.title}}</p></li></a>
+                  <a href="/front_productpage/show/{{product.id}}"><li><img id="images" src="/static/dope_vinyl/imgs/uploaded_media/{{product.image}}"><p class="title">{{product.title}}</p></li></a>
                   {% endfor %}
                </ul>
             </div>

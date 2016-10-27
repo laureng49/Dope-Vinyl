@@ -118,11 +118,25 @@ def products(request):
 
     context = {
         "all_products": all_products,
-        "all_genres": all_genres
+        "all_genres": all_genres,
     }
     return render(request, 'dope_vinyl/dashboard_allproducts.html', context)
 
 def products_add(request):
+    if request.method == "POST":
+        if request.POST['genre_new'] != "":
+            artist_name = Artist.objects.create(name=request.POST['artist'])
+            genre_type = Genre.objects.create(genre_type=request.POST['genre_new'])
+            Product.objects.create(artist=artist_name, title=request.POST['title'],description=request.POST['description'],genre=genre_type, price=request.POST['price'], inventory=request.POST['inventory'], image=request.FILES['image'])
+
+        elif request.POST['genre'] != "":
+            artist_name = Artist.objects.create(name=request.POST['artist'])
+            genre_type = Genre.objects.get(genre_type=request.POST['genre'])
+            Product.objects.create(artist=artist_name, title=request.POST['title'],description=request.POST['description'],genre=genre_type, price=request.POST['price'], inventory=request.POST['inventory'], image=request.FILES['image'])
+
+    return redirect("/dashboard/products")
+
+def products_edit(request):
     if request.method == "POST":
         if request.POST['genre_new'] != "":
             artist_name = Artist.objects.create(name=request.POST['artist'])
