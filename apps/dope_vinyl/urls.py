@@ -19,9 +19,6 @@ urlpatterns = [
     url(r'^carts$', views.carts),
 
 
-
-
-
 #     url(r'^home$', views.home),
 #     url(r'^carts$', views.carts),
 #     url(r'^admin$', views.admin),
