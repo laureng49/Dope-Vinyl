@@ -40,6 +40,10 @@ def front_allproducts(request):
     return render(request, "dope_vinyl/front_allproducts.html", context)
 
 def front_allproducts_cat(request, id):
+    try:
+        sort=request.POST['sort']
+    except:
+        sort='title'
     products = Product.objects.filter(genre=id)
     paginator = Paginator(products,15)
     page = request.GET.get('page')
