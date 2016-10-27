@@ -40,7 +40,7 @@ class Order(models.Model):
 class Product(models.Model):
     order = models.ManyToManyField(Order, related_name="products_order_number")
     genre = models.ForeignKey("Genre")
-    image = models.ImageField()
+    image = models.FileField()
     artist = models.ForeignKey("Artist")
     description = models.CharField(max_length = 1000)
     price = models.DecimalField(max_digits=6, decimal_places=2)
