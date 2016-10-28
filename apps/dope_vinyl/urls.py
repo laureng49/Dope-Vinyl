@@ -2,7 +2,6 @@ from django.conf.urls import url
 from . import views
 urlpatterns = [
     url(r'^$', views.home),
-    url(r'^add_records$', views.add_records),
     url(r'^show$', views.home),
     # url(r'^dashboard/products$', views.products),
     url(r'^front_allproducts$', views.front_allproducts),
@@ -16,12 +15,20 @@ urlpatterns = [
     url(r'^adminlogout$', views.adminlogout),
     url(r'^dashboard/products$', views.products, name = 'products'), #TEMPLATE
     url(r'^dashboard/products/add$', views.products_add),
+
     url(r'^dashboard/products/edit/(?P<id>\d+)$', views.products_edit),
     url(r'^dashboard/products/delete/(?P<id>\d+)$', views.products_delete),
+
+    url(r'^dashboard/products/edit/(?P<id>\d+)$', views.products_edit),
+    url(r'^dashboard/products/delete/(?P<id>\d+)$', views.products_delete),
+
+    # url(r'^dashboard/products/edit/(?P<id>\d+)$', views.products_edit),
+
     url(r'^dashboard/orders$', views.orders),
     url(r'^dashboard/orders/show$', views.show_orders),
     # url(r'^adminlogout$', views.adminlogout),
     url(r'^carts$', views.carts),
+    url(r'^billing_shipping$', views.billing_shipping),
 
 
 #     url(r'^home$', views.home),

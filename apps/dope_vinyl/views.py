@@ -6,23 +6,17 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 ###################################### USER ####################################################
 
 def home(request):
-    context = {'records' : Product.objects.all()}
-    return render(request, "dope_vinyl/home.html", context)
-
-def add_records(request):
-    genre = Genre.objects.filter(genre_type="Pop")[0]
-    artist = Artist.objects.create(name="Taylor Swift")
-    Product.objects.create(genre=genre,image='imgs/Music/Pop/TaylorSwift.jpg',artist=artist,title = "T.S. 1989", price='19.99',inventory="100", description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras ullamcorper, arcu sed interdum ullamcorper, purus diam scelerisque arcu, eget tristique ligula odio sed orci. Pellentesque quis eros in tellus dignissim rutrum. Suspendisse mattis venenatis velit. Nulla faucibus sagittis rhoncus. Praesent consequat et nisl sed facilisis. Vestibulum eget diam massa. Praesent arcu augue, pretium vel libero nec, congue bibendum tortor. Ut id condimentum dui. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Etiam rutrum, ipsum ac interdum ultrices, elit elit suscipit sem, sed mattis augue velit sit amet neque. Aenean id velit enim. Sed fringilla accumsan orci eget sagittis. In nisl mi, dictum sit amet massa vitae, auctor ullamcorper ligula.")
-    return redirect('/')
-
-
+    return render(request, "dope_vinyl/home.html")
 
 def front_allproducts(request):
     try:
         sort=request.POST['sort']
     except:
         sort='title'
-    products = Product.objects.all().order_by(sort)
+    if request.method == 'POST':
+        products = Product.objects.filter(title__contains=request.POST['search_title'])
+    else:
+        products = Product.objects.all().order_by(sort)
     paginator = Paginator(products,15)
     page = request.GET.get('page')
     try:
@@ -40,6 +34,10 @@ def front_allproducts(request):
     return render(request, "dope_vinyl/front_allproducts.html", context)
 
 def front_allproducts_cat(request, id):
+    try:
+        sort=request.POST['sort']
+    except:
+        sort='title'
     products = Product.objects.filter(genre=id)
     paginator = Paginator(products,15)
     page = request.GET.get('page')
@@ -58,7 +56,7 @@ def front_allproducts_cat(request, id):
 
 def front_productpage(request, id):
     product = Product.objects.get(id=id)
-    similar_products = Product.objects.filter(genre=product.genre)
+    similar_products = Product.objects.filter(genre=product.genre).exclude(id=product)
     context = {
         'product': product,
         'similar_products': similar_products
@@ -105,6 +103,7 @@ def adminlogout(request):
 ############################################### DASHBOARD #######################################
 #ALL ORDERS ON ADMIN PAGE.
 def orders(request):
+
     # if 'logged_admin' not in request.session:
     #     messages.error(request, "Gotta login bro")
     #     return redirect('/adminlogin')
@@ -120,6 +119,15 @@ def orders(request):
 def show_orders(request):
 
     return render(request, 'dope_vinyl/dashboard_showorder.html')
+
+    if 'logged_admin' not in request.session:
+        messages.error(request, "Gotta login bro")
+        return redirect('/adminlogin')
+    context = {
+        'admin': Admin.objects.get(id=request.session['logged_admin'])
+    }
+
+    return render(request, 'dope_vinyl/dashboard_allorders.html', context)
 
 #ALL PRODUCTS ON ADMIN PAGE. CLICK ON ADD NEW PRODUCT TO TAKE YOU TO ADD/EDIT ROUTE.
 
@@ -148,6 +156,12 @@ def products_add(request):
             genre_type = Genre.objects.get(genre_type=request.POST['genre'])
             Product.objects.create(artist=artist_name, title=request.POST['title'],description=request.POST['description'],genre=genre_type, price=request.POST['price'], inventory=request.POST['inventory'], image=request.FILES['image'])
     return redirect("/dashboard/products")
+<<<<<<< HEAD
+=======
+
+
+def products_edit(request):
+>>>>>>> bc21fc911969419a8adb5307da4dedb474ee5d28
 
 def products_edit(request, id):
     if request.method == "POST":

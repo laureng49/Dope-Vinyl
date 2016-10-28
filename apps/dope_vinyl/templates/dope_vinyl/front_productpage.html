@@ -4,12 +4,17 @@
         <meta charset="utf-8">
         {% load staticfiles %}
         <title>Product Page</title>
+        <script>
+        function total(quantity, price){
+           alert(document.frm.quantity.value * document.frm.price.value);
+        }
+        </script>
         <!-- <link rel="stylesheet" href="./../css/front_productpage.css" media="screen" title="no title"> -->
         <link rel="stylesheet" href="{% static '/dope_vinyl/css/front_productpage.css' %}" media="screen" title="no title">
     </head>
     <body>
         <div id="nav_bar">
-            <h3>Dojo eCommerce</h3>
+            <h3>Dope Vinyl</h3>
             <a href="#">Shopping Cart (5)</a>
         </div>
 
@@ -24,10 +29,10 @@
             <p id="content_description">
                 {{product.description}}
             </p>
-            <form class="" action="/front_productpage/buy/{{product.id}}" method="post">
+            <form mane='frm' action="/front_productpage/buy/{{product.id}}" method="post">
                 {% csrf_token %}
                 <select>
-                    <option value="1">1  ${{product.price}}</option>
+                    <option value="1">1 <span>2*{{product.price}}</option>
                     <option value="2">2  ${{product.price}}</option>
                     <option value="3">3  ${{product.price}}</option>
                 </select>
