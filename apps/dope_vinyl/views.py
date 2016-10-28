@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, HttpResponse
 from django.contrib import messages
 from .models import Product, Genre, Artist, Admin, Order
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-
+import stripe
 ###################################### USER ####################################################
 
 def home(request):
@@ -14,8 +14,6 @@ def add_records(request):
     artist = Artist.objects.create(name="Taylor Swift")
     Product.objects.create(genre=genre,image='imgs/Music/Pop/TaylorSwift.jpg',artist=artist,title = "T.S. 1989", price='19.99',inventory="100", description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras ullamcorper, arcu sed interdum ullamcorper, purus diam scelerisque arcu, eget tristique ligula odio sed orci. Pellentesque quis eros in tellus dignissim rutrum. Suspendisse mattis venenatis velit. Nulla faucibus sagittis rhoncus. Praesent consequat et nisl sed facilisis. Vestibulum eget diam massa. Praesent arcu augue, pretium vel libero nec, congue bibendum tortor. Ut id condimentum dui. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Etiam rutrum, ipsum ac interdum ultrices, elit elit suscipit sem, sed mattis augue velit sit amet neque. Aenean id velit enim. Sed fringilla accumsan orci eget sagittis. In nisl mi, dictum sit amet massa vitae, auctor ullamcorper ligula.")
     return redirect('/')
-
-
 
 def front_allproducts(request):
     try:
@@ -71,9 +69,6 @@ def buy(request, id):
 
 def carts(request):
 
-
-
-
     return render(request, "dope_vinyl/front_shoppingcart.html")
 
 def billing_shipping(request):
@@ -122,10 +117,10 @@ def adminlogout(request):
 ############################################### DASHBOARD #######################################
 #ALL ORDERS ON ADMIN PAGE.
 def orders(request):
-<<<<<<< HEAD
+
 
     return render(request, 'dope_vinyl/dashboard_allorders.html')
-=======
+
     if 'logged_admin' not in request.session:
         messages.error(request, "Gotta login bro")
         return redirect('/adminlogin')
@@ -134,7 +129,7 @@ def orders(request):
     }
 
     return render(request, 'dope_vinyl/dashboard_allorders.html', context)
->>>>>>> 907a69e3168bf4f6f24c767c827e5c01ca53d63f
+
 
 
 #INDIVIDUAL ORDER ON ADMIN PAGE.

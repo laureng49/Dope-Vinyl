@@ -16,14 +16,14 @@ urlpatterns = [
     url(r'^adminlogout$', views.adminlogout),
     url(r'^dashboard/products$', views.products), #TEMPLATE
     url(r'^dashboard/products/add$', views.products_add),
-<<<<<<< HEAD
+
     url(r'^dashboard/products/edit/(?P<id>\d+)$', views.products_edit),
     url(r'^dashboard/products/delete/(?P<id>\d+)$', views.products_delete),
-=======
+
     # url(r'^dashboard/products/edit/(?P<id>\d+)$', views.products_edit),
->>>>>>> 907a69e3168bf4f6f24c767c827e5c01ca53d63f
+
     url(r'^dashboard/orders$', views.orders),
-    url(r'^dashboard/orders/show$', views.show_orders),    
+    url(r'^dashboard/orders/show$', views.show_orders),
     # url(r'^adminlogout$', views.adminlogout),
     url(r'^carts$', views.carts),
     url(r'^billing_shipping$', views.billing_shipping),
