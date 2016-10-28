@@ -156,12 +156,7 @@ def products_add(request):
             genre_type = Genre.objects.get(genre_type=request.POST['genre'])
             Product.objects.create(artist=artist_name, title=request.POST['title'],description=request.POST['description'],genre=genre_type, price=request.POST['price'], inventory=request.POST['inventory'], image=request.FILES['image'])
     return redirect("/dashboard/products")
-<<<<<<< HEAD
-=======
 
-
-def products_edit(request):
->>>>>>> bc21fc911969419a8adb5307da4dedb474ee5d28
 
 def products_edit(request, id):
     if request.method == "POST":
