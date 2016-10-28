@@ -22,7 +22,7 @@
         <input id="search_bar" type='search' name="search" placeholder="Search">
     </form>
 
-     <select id="dropdown" class="custom-select">
+     <select id="dropdown" class="custom-select" name="sort" onchange="form.submit()">
         <option value="showall">Show All</option>
         <option value="process">Order in Process</option>
         <option value="cancelled">Cancelled</option>
@@ -46,73 +46,49 @@
                <th id="status">Status</th>
             </tr>
             <tr>
-               <td>1</th>
-               <td>Bob</th>
-               <td>10/20/2016</th>
-               <td>1234 Easter Lane WA 98765</th>
-               <td>$200</th>
-               <td>Shipped</th>
+               <td>1</td>
+               <td>Bob</td>
+               <td>10/20/2016</td>
+               <td>1234 Easter Lane WA 98765</td>
+               <td>$200</td>
+               <td>
+                    <select class="custom-select" name="sort" onchange="form.submit()">
+                        <option value="process">Order in Process</option>
+                        <option value="cancelled">Cancelled</option>
+                        <option value="shipped">Shipped</option>
+                    </select>
+                </td>
             </tr>
             <tr>
-               <td>1</th>
-               <td>Bob</th>
-               <td>10/20/2016</th>
-               <td>1234 Easter Lane WA 98765</th>
-               <td>$200</th>
-               <td>Shipped</th>
-            </tr>
-            <tr>
-               <td>1</th>
-               <td>Bob</th>
-               <td>10/20/2016</th>
-               <td>1234 Easter Lane WA 98765</th>
-               <td>$200</th>
-               <td>Shipped</th>
-            </tr>
-            <tr>
-               <td>1</th>
-               <td>Bob</th>
-               <td>10/20/2016</th>
-               <td>1234 Easter Lane WA 98765</th>
-               <td>$200</th>
-               <td>Shipped</th>
-            </tr>
-            <tr>
-               <td>1</th>
-               <td>Bob</th>
-               <td>10/20/2016</th>
-               <td>1234 Easter Lane WA 98765</th>
-               <td>$200</th>
-               <td>Shipped</th>
-            </tr>
-            <tr>
-               <td>1</th>
-               <td>Bob</th>
-               <td>10/20/2016</th>
-               <td>1234 Easter Lane WA 98765</th>
-               <td>$200</th>
-               <td>Shipped</th>
-            </tr>
-            <tr>
-               <td>1</th>
-               <td>Bob</th>
-               <td>10/20/2016</th>
-               <td>1234 Easter Lane WA 98765</th>
-               <td>$200</th>
-               <td>Shipped</th>
+                <td>1</td>
+                <td>Bob</td>
+                <td>10/20/2016</td>
+                <td>1234 Easter Lane WA 98765</td>
+                <td>$200</td>
+                <td>
+                    <select class="custom-select" name="sort" onchange="form.submit()">
+                        <option value="process">Order in Process</option>
+                        <option value="cancelled">Cancelled</option>
+                        <option value="shipped">Shipped</option>
+                    </select>
+                </td>
             </tr>
             {% for order in orders %}
             <tr>
-               <td>{{order.id}}</td>
-               <td>{{order.user.first_name}}</td>
-               <td>{{order.date}}</td>
-               <td>{{order.billing_info.address}}</td>
-               <td>{{order.total}}</td>
-               <select>
-                  <option value="process">Order in Process</option>
-                  <option value="cancelled">Cancelled</option>
-                  <option value="shipped">Shipped</option>
-               </select>
+                <td>{{order.id}}</td>
+                <td>{{order.billing.bill_first_name}}</td>
+                <td>{{order.billing.created_at}}</td>
+                <td>{{order.billing.bill_address1}}<br>
+                {{order.billing.bill_address2}}
+                </td>
+                <td>{{order.total}}</td>
+                <td>
+                    <select class="custom-select" name="sort" onchange="form.submit()">
+                        <option value="process">Order in Process</option>
+                        <option value="cancelled">Cancelled</option>
+                        <option value="shipped">Shipped</option>
+                    </select>
+                </td>
             </tr>
             {% endfor %}
          </table>

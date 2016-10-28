@@ -18,8 +18,10 @@
         <a id="logoff" href="/adminlogout">log off</a>
     </div>
 
-    <form id="search_form" action="" method="Post">
-        <input id="search_bar" type='search' name="search" placeholder="Search">
+    <form id="search_form" action="" method="POST">
+        {% csrf_token %}
+        <input id="search_bar" type='search' name="search_title" placeholder="Search by Artist">
+        <input class="btn btn-danger" type="submit" value="Search">
     </form>
 
       <!-- <a id='add_product' href="/dashboard/products/insert">Add New Product</a> -->
@@ -65,12 +67,14 @@
                             <label>Title <input id="title" type='text' name='title'></label>
                             <label>Description <input id="description" type='text' name='description'></label>
                             <label>Genre
-                                {% for genre in all_genres %}
+
                                 <select id="genre" class="custom-select" name='genre'>
                                     <option selected>SELECT</option>
+                                    {% for genre in all_genres %}
                                     <option value="{{genre.genre_type}}">{{genre.genre_type}}</option>
+                                    {% endfor %}
                                 </select>
-                                {% endfor %}
+
                             </label>
                             <label>or add new genre: <input id="genre_new" type="text" name='genre_new'></label>
                             <label>Price: <input id="price" type="text" name='price'></label>

@@ -1,10 +1,13 @@
 from django.shortcuts import render, redirect, HttpResponse
 from django.contrib import messages
+<<<<<<< HEAD
 from .models import Product, Genre, Artist, Admin, Order, Billing, Shipping, Product_orders
+=======
+from .models import Product, Genre, Artist, Admin, Order, Shipping, Billing
+>>>>>>> a2a300c3b7f210187340d1065fac842144c24c91
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 import stripe
 ###################################### USER ####################################################
-
 def home(request):
     return render(request, "dope_vinyl/home.html")
 
@@ -177,6 +180,7 @@ def adminlogin(request):
             return redirect('/dashboard/orders')
     return redirect('/admin')
 
+### justin's is: justin.sucks@gmail.com password: dope. Because he sucks.
 ### we put one admin into the DB's Admin table.
 ###     The login is: dope.vinyl.admin@gmail.com (all lowercase)
 ###     The password is: dope (all lowercase)
@@ -186,13 +190,20 @@ def adminlogout(request):
     return redirect('/admin')
 
 ############################################### DASHBOARD #######################################
+
 #ALL ORDERS ON ADMIN PAGE.
 def orders(request):
     if 'logged_admin' not in request.session:
         messages.error(request, "Gotta login bro.")
         return redirect('/adminlogin')
+
+    all_shipments = Shipping.objects.all().order_by('-id')
+    all_billings = Billing.objects.all()
+
     context = {
-        'admin': Admin.objects.get(id=request.session['logged_admin'])
+        'admin': Admin.objects.get(id=request.session['logged_admin']),
+        'all_shipments': all_shipments,
+        'all_billings': all_billings
     }
 
     return render(request, 'dope_vinyl/dashboard_allorders.html', context)
@@ -207,7 +218,7 @@ def show_orders(request):
     context = {
         'admin': Admin.objects.get(id=request.session['logged_admin'])
     }
-    return render(request, 'dope_vinyl/dashboard_allorders.html', context)
+    return render(request, 'dope_vinyl/dashboard_showorder.html', context)
 
 #ALL PRODUCTS ON ADMIN PAGE. CLICK ON ADD NEW PRODUCT TO TAKE YOU TO ADD/EDIT ROUTE.
 
@@ -220,9 +231,13 @@ def products(request):
 
     context = {
         "all_products": all_products,
-        "all_genres": all_genres
+        "all_genres": all_genres,
     }
     return render(request, 'dope_vinyl/dashboard_allproducts.html', context)
+
+def products_search(request):
+
+    return redirect("/dashboard/products")
 
 def products_add(request):
     if request.method == "POST":
@@ -236,7 +251,6 @@ def products_add(request):
             genre_type = Genre.objects.get(genre_type=request.POST['genre'])
             Product.objects.create(artist=artist_name, title=request.POST['title'],description=request.POST['description'],genre=genre_type, price=request.POST['price'], inventory=request.POST['inventory'], image=request.FILES['image'])
     return redirect("/dashboard/products")
-
 
 def products_edit(request, id):
     if request.method == "POST":
