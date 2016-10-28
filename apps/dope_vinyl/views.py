@@ -76,6 +76,23 @@ def carts(request):
 
     return render(request, "dope_vinyl/front_shoppingcart.html")
 
+def billing_shipping(request):
+    stripe.api_key = "sk_test_MtYKfrdjHXRPAAuSul1W5m5B"
+    token = request.POST['stripeToken']
+    try:
+      charge = stripe.Charge.create(
+          amount=1000,
+          currency="usd",
+          source=token,
+          description="Example charge"
+      )
+    except stripe.error.CardError as e:
+      # The card has been declined
+      pass
+
+
+    return redirect('/dashboard/orders')
+
 
 
 ###################################### ADMIN ###################################################

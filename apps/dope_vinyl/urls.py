@@ -20,6 +20,7 @@ urlpatterns = [
     url(r'^dashboard/orders$', views.orders),
     # url(r'^adminlogout$', views.adminlogout),
     url(r'^carts$', views.carts),
+    url(r'^billing_shipping$', views.billing_shipping),
 
 
 #     url(r'^home$', views.home),
