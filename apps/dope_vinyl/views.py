@@ -79,20 +79,20 @@ def carts(request):
 
 
 ###################################### ADMIN ###################################################
-def admin(request):
-    return render(request, "dope_vinyl/adminlogin.html")
-
-
-def adminlogin(request):
-   if request.method == "POST":
-       admin = Admin.objects.login(request.POST)
-       #then goes to models login
-       if not admin:
-           messages.error(request, "Invalid login credentials!")
-       else:
-           request.session['logged_admin'] = admin.id
-           return redirect('/dashboard/orders')
-   return redirect('/admin')
+# def admin(request):
+#     return render(request, "dope_vinyl/adminlogin.html")
+#
+#
+# def adminlogin(request):
+#    if request.method == "POST":
+#        admin = Admin.objects.login(request.POST)
+#        #then goes to models login
+#        if not admin:
+#            messages.error(request, "Invalid login credentials!")
+#        else:
+#            request.session['logged_admin'] = admin.id
+#            return redirect('/dashboard/orders')
+#    return redirect('/admin')
 
 ### we put one admin into the DB's Admin table.
 ###     The login is: dope.vinyl.admin@gmail.com (all lowercase)
@@ -105,19 +105,15 @@ def adminlogout(request):
 ############################################### DASHBOARD #######################################
 #ALL ORDERS ON ADMIN PAGE.
 def orders(request):
-<<<<<<< HEAD
+    # if 'logged_admin' not in request.session:
+    #     messages.error(request, "Gotta login bro")
+    #     return redirect('/adminlogin')
+
+    # context = {
+    #     'admin': Admin.objects.get(id=request.session['logged_admin'])
+    # }
 
     return render(request, 'dope_vinyl/dashboard_allorders.html')
-=======
-    if 'logged_admin' not in request.session:
-        messages.error(request, "Gotta login bro")
-        return redirect('/adminlogin')
-    context = {
-        'admin': Admin.objects.get(id=request.session['logged_admin'])
-    }
-
-    return render(request, 'dope_vinyl/dashboard_allorders.html', context)
->>>>>>> 907a69e3168bf4f6f24c767c827e5c01ca53d63f
 
 
 #INDIVIDUAL ORDER ON ADMIN PAGE.
@@ -128,10 +124,10 @@ def show_orders(request):
 #ALL PRODUCTS ON ADMIN PAGE. CLICK ON ADD NEW PRODUCT TO TAKE YOU TO ADD/EDIT ROUTE.
 
 def products(request):
-    if 'logged_admin' not in request.session:
-        messages.error(request, "Gotta login bro")
-        return redirect('/adminlogin')
-    all_products = Product.objects.all()
+    # if 'logged_admin' not in request.session:
+    #     messages.error(request, "Gotta login bro")
+    #     return redirect('/adminlogin')
+    all_products = Product.objects.all().order_by('-id')
     all_genres = Genre.objects.filter()
 
     context = {
@@ -151,26 +147,20 @@ def products_add(request):
             artist_name = Artist.objects.create(name=request.POST['artist'])
             genre_type = Genre.objects.get(genre_type=request.POST['genre'])
             Product.objects.create(artist=artist_name, title=request.POST['title'],description=request.POST['description'],genre=genre_type, price=request.POST['price'], inventory=request.POST['inventory'], image=request.FILES['image'])
-
     return redirect("/dashboard/products")
-<<<<<<< HEAD
 
-def products_edit(request):
-
+def products_edit(request, id):
     if request.method == "POST":
         if request.POST['genre_new'] != "":
             genre_type = request.POST['genre_new']
-            Product.objects.get(id=request.POST['id']).update(artist=artist_name, title=request.POST['title'],description=request.POST['description'],genre=genre_type, price=request.POST['price'], inventory=request.POST['inventory'], image=request.FILES['image'])
+            Product.objects.filter(id=id).update(title=request.POST['title'],description=request.POST['description'], price=request.POST['price'], inventory=request.POST['inventory'])
 
         elif request.POST['genre'] != "":
             genre_type = request.POST['genre']
-            Product.objects.get(id=request.POST['id']).update(artist=artist_name, title=request.POST['title'],description=request.POST['description'],genre=genre_type, price=request.POST['price'], inventory=request.POST['inventory'], image=request.FILES['image'])
+            Product.objects.filter(id=id).update(title=request.POST['title'],description=request.POST['description'], price=request.POST['price'], inventory=request.POST['inventory'])
 
-    return redirect("/dashboard/products")
-
+    return redirect("products")
 
 def products_delete(request, id):
     Product.objects.get(id=id).delete()
     return redirect("/dashboard/products")
-=======
->>>>>>> 907a69e3168bf4f6f24c767c827e5c01ca53d63f

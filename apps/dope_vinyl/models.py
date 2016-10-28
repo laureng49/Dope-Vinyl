@@ -2,12 +2,13 @@ from __future__ import unicode_literals
 from django.db import models
 
 class AdminManager(models.Manager):
-   def login(self, post):
-       admin = Admin.objects.get(email=post['email'])
-       if admin:
-           if Admin.objects.get(password=post['password']):
-               return admin
-       return None
+    pass
+   # def login(self, post):
+   #     admin = Admin.objects.get(email=post['email'])
+   #     if admin:
+   #         if Admin.objects.get(password=post['password']):
+   #             return admin
+   #     return None
 class OrderManager(models.Manager):
     pass
 class ProductManager(models.Manager):
