@@ -7,7 +7,7 @@ import stripe
 
 def home(request):
 
-    return render(request, "dope_vinyl/home.html", context)
+    return render(request, "dope_vinyl/home.html")
 
 def front_allproducts(request):
     cart = request.session.get('cart', {})
@@ -124,6 +124,7 @@ def billing_shipping(request):
    except stripe.error.CardError as e:
      # The card has been declined
      pass
+     
 
    return redirect('/dashboard/orders')
 

@@ -18,34 +18,11 @@ urlpatterns = [
     url(r'^adminlogout$', views.adminlogout),
     url(r'^dashboard/products$', views.products, name = 'products'), #TEMPLATE
     url(r'^dashboard/products/add$', views.products_add),
-<<<<<<< HEAD
-
-    url(r'^dashboard/products/edit/(?P<id>\d+)$', views.products_edit),
-    url(r'^dashboard/products/delete/(?P<id>\d+)$', views.products_delete),
-
-    # url(r'^dashboard/products/edit/(?P<id>\d+)$', views.products_edit),
-
-    url(r'^dashboard/orders$', views.orders),
-    url(r'^dashboard/orders/show$', views.show_orders),
-    # url(r'^adminlogout$', views.adminlogout),
-    url(r'^carts$', views.carts),
-    url(r'^billing_shipping$', views.billing_shipping),
-
-
-#     url(r'^home$', views.home),
-#     url(r'^carts$', views.carts),
-#     url(r'^admin$', views.admin),
-#     url(r'^category$', views.category),
-#     url(r'^category/(?P<category_id>\d+)$', views.category_page),
-#     url(r'^dashboard/products$', views.products),
-#     url(r'^products/show/(?P<product_id>\d+)$', views.product_page),
-#     url(r'^dashboard/orders$', views.orders),
-=======
     url(r'^dashboard/products/edit/(?P<id>\d+)$', views.products_edit),
     url(r'^dashboard/products/delete/(?P<id>\d+)$', views.products_delete),
     url(r'^dashboard/products/edit/(?P<id>\d+)$', views.products_edit),
     url(r'^dashboard/products/delete/(?P<id>\d+)$', views.products_delete),
     url(r'^dashboard/orders$', views.orders),
     url(r'^dashboard/orders/show$', views.show_orders),
->>>>>>> cef7449eada1bdb140db495f30f5c232cba3a452
+    
 ]
