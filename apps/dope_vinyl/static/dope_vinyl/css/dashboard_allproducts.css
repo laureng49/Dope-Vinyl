@@ -42,7 +42,7 @@ html {
     border-style: solid;
     border-color: grey;
     border-radius: 10px;
-    padding: 2px 400px 2px 10px;
+    padding: 2px 300px 2px 10px;
     font-size: 18px;
 }
 
@@ -60,7 +60,7 @@ html {
 
 table {
     border-style: solid;
-    border-color: grey;
+    border-color: #e2e2e2;
     margin-top: 50px;
     width: 1200px;
     margin-left: 62px;

@@ -4,7 +4,6 @@ from .models import Product, Genre, Artist, Admin, Order
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 ###################################### USER ####################################################
-
 def home(request):
     return render(request, "dope_vinyl/home.html")
 
@@ -64,17 +63,26 @@ def front_productpage(request, id):
     return render(request, "dope_vinyl/front_productpage.html", context)
 
 def buy(request, id):
-
     return redirect('/front_allproducts')
 
 def carts(request):
-
-
-
-
     return render(request, "dope_vinyl/front_shoppingcart.html")
 
+def billing_shipping(request):
+   stripe.api_key = "sk_test_MtYKfrdjHXRPAAuSul1W5m5B"
+   token = request.POST['stripeToken']
+   try:
+     charge = stripe.Charge.create(
+         amount=1000,
+         currency="usd",
+         source=token,
+         description="Example charge"
+     )
+   except stripe.error.CardError as e:
+     # The card has been declined
+     pass
 
+   return redirect('/dashboard/orders')
 
 ###################################### ADMIN ###################################################
 # def admin(request):
@@ -140,9 +148,14 @@ def products(request):
 
     context = {
         "all_products": all_products,
-        "all_genres": all_genres
+        "all_genres": all_genres,
     }
     return render(request, 'dope_vinyl/dashboard_allproducts.html', context)
+
+def products_search(request):
+
+
+    return redirect("/dashboard/products")
 
 def products_add(request):
     if request.method == "POST":
@@ -156,12 +169,6 @@ def products_add(request):
             genre_type = Genre.objects.get(genre_type=request.POST['genre'])
             Product.objects.create(artist=artist_name, title=request.POST['title'],description=request.POST['description'],genre=genre_type, price=request.POST['price'], inventory=request.POST['inventory'], image=request.FILES['image'])
     return redirect("/dashboard/products")
-<<<<<<< HEAD
-=======
-
-
-def products_edit(request):
->>>>>>> bc21fc911969419a8adb5307da4dedb474ee5d28
 
 def products_edit(request, id):
     if request.method == "POST":

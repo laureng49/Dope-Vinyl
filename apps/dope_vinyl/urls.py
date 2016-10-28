@@ -15,12 +15,10 @@ urlpatterns = [
     url(r'^adminlogout$', views.adminlogout),
     url(r'^dashboard/products$', views.products, name = 'products'), #TEMPLATE
     url(r'^dashboard/products/add$', views.products_add),
-
+    url(r'^dashboard/products/search$', views.products_search),
     url(r'^dashboard/products/edit/(?P<id>\d+)$', views.products_edit),
     url(r'^dashboard/products/delete/(?P<id>\d+)$', views.products_delete),
 
-    url(r'^dashboard/products/edit/(?P<id>\d+)$', views.products_edit),
-    url(r'^dashboard/products/delete/(?P<id>\d+)$', views.products_delete),
 
     # url(r'^dashboard/products/edit/(?P<id>\d+)$', views.products_edit),
 
