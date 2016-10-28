@@ -15,7 +15,7 @@
     <body>
         <div id="nav_bar">
             <h3>Dope Vinyl</h3>
-            <a href="#">Shopping Cart (5)</a>
+            <a href="/carts">Shopping Cart ( {{length}} )</a>
         </div>
 
 
@@ -32,11 +32,16 @@
             <form mane='frm' action="/front_productpage/buy/{{product.id}}" method="post">
                 {% csrf_token %}
                 <select>
-                    <option value="1">1 <span>2*{{product.price}}</option>
-                    <option value="2">2  ${{product.price}}</option>
-                    <option value="3">3  ${{product.price}}</option>
+                    <option value="1">1 ${{product.price}}</option>
+                    <!-- <option value="2">2  ${{product.price}}</option>
+                    <option value="3">3  ${{product.price}}</option> -->
                 </select>
                 <input id='buy' type="submit" value="Buy">
+                {% if messages %}
+                  {% for message in messages %}
+                    <p{% if message.tags %} class="{{ message.tags }}"{% endif %}> {{message}}</p>
+                  {% endfor %}
+                {% endif %}
             </form>
         </div>
         <h4>Similar Items</h4>
