@@ -140,3 +140,22 @@ def products_add(request):
             Product.objects.create(artist=artist_name, title=request.POST['title'],description=request.POST['description'],genre=genre_type, price=request.POST['price'], inventory=request.POST['inventory'], image=request.FILES['image'])
 
     return redirect("/dashboard/products")
+
+
+def products_edit(request):
+
+    if request.method == "POST":
+        if request.POST['genre_new'] != "":
+            genre_type = request.POST['genre_new']
+            Product.objects.get(id=request.POST['id']).update(artist=artist_name, title=request.POST['title'],description=request.POST['description'],genre=genre_type, price=request.POST['price'], inventory=request.POST['inventory'], image=request.FILES['image'])
+
+        elif request.POST['genre'] != "":
+            genre_type = request.POST['genre']
+            Product.objects.get(id=request.POST['id']).update(artist=artist_name, title=request.POST['title'],description=request.POST['description'],genre=genre_type, price=request.POST['price'], inventory=request.POST['inventory'], image=request.FILES['image'])
+
+    return redirect("/dashboard/products")
+
+
+def products_delete(request, id):
+    Product.objects.get(id=id).delete()
+    return redirect("/dashboard/products")
