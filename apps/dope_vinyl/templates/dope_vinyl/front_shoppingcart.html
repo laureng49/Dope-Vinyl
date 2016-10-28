@@ -69,8 +69,8 @@
     </head>
     <body>
         <div id="nav_bar">
-            <h3>Dojo eCommerce</h3>
-            <a href="#">Shopping Cart (5)</a>
+            <h3>Dope Vinyl</h3>
+            <a href="/carts">Shopping Cart ( {{length}} )</a>
         </div>
         <div id="order_list">
             <table>
@@ -80,20 +80,16 @@
                 <th>Quantity</th>
                 <th>Total</th>
               </tr>
+              {% for key,value,price in cart_list %}
               <tr>
-                <td>Will Smith - Big Willie Style</td>
-                <td>$19.99</td>
-                <td>1 <a href="#">update</a> <a href="#">delete</a></td>
-                <td>$19.99</td>
+                <td>{{key.title}}</td>
+                <td>${{key.price}}</td>
+                <td>{{value}} ___<a href="#">update</a> <a href="#">delete</a></td>
+                <td>${{price}}</td>
               </tr>
-              <tr>
-                <td>{{product.title}}</td>
-                <td>{{product.price}}</td>
-                <td>1 <a href="#">update</a> <a href="#">delete</a></td>
-                <td>$.99</td>
-              </tr>
+              {% endfor %}
             </table>
-            <h5>Total: $49.96</h5>
+            <h5>Total: ${{total}}</h5>
             <a id="continue_shopping_button" href="/front_allproducts">Continue Shopping</a>
         </div>
 

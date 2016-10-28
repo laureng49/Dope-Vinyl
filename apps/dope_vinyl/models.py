@@ -3,9 +3,10 @@ from django.db import models
 
 class AdminManager(models.Manager):
    def login(self, post):
-       admin = Admin.objects.get(email=post['email'])
+       admin = Admin.objects.filter(email=post['email'])
        if admin:
-           if Admin.objects.get(password=post['password']):
+           admin = admin[0]
+           if admin.password == post['password']:
                return admin
        return None
 class OrderManager(models.Manager):

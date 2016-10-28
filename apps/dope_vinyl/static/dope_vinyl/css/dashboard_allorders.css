@@ -15,7 +15,8 @@ html {
    margin-bottom: 20px;
    color: white;
 }
-    h4 {
+    #logo {
+    font-family: 'Pacifico', cursive;
     display: inline-block;
     margin: 0px 10px 0px 15px;
     padding: 0px;
@@ -123,7 +124,10 @@ table {
         margin-right: 100px;
     }
 
-    tr:nth-child(odd) {background-color: #e6f2ff}
+    tr:nth-child(odd) {
+        background-color: #e6f2ff
+    }
+
 img {
     width: 100px;
     height: 100px;
