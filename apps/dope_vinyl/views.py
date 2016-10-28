@@ -170,7 +170,6 @@ def products_add(request):
             Product.objects.create(artist=artist_name, title=request.POST['title'],description=request.POST['description'],genre=genre_type, price=request.POST['price'], inventory=request.POST['inventory'], image=request.FILES['image'])
 
     return redirect("/dashboard/products")
-<<<<<<< HEAD
 
 def products_edit(request):
 
@@ -189,5 +188,3 @@ def products_edit(request):
 def products_delete(request, id):
     Product.objects.get(id=id).delete()
     return redirect("/dashboard/products")
-=======
->>>>>>> 907a69e3168bf4f6f24c767c827e5c01ca53d63f
