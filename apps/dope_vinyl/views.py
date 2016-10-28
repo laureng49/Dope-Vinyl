@@ -6,23 +6,17 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 ###################################### USER ####################################################
 
 def home(request):
-    context = {'records' : Product.objects.all()}
-    return render(request, "dope_vinyl/home.html", context)
-
-def add_records(request):
-    genre = Genre.objects.filter(genre_type="Pop")[0]
-    artist = Artist.objects.create(name="Taylor Swift")
-    Product.objects.create(genre=genre,image='imgs/Music/Pop/TaylorSwift.jpg',artist=artist,title = "T.S. 1989", price='19.99',inventory="100", description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras ullamcorper, arcu sed interdum ullamcorper, purus diam scelerisque arcu, eget tristique ligula odio sed orci. Pellentesque quis eros in tellus dignissim rutrum. Suspendisse mattis venenatis velit. Nulla faucibus sagittis rhoncus. Praesent consequat et nisl sed facilisis. Vestibulum eget diam massa. Praesent arcu augue, pretium vel libero nec, congue bibendum tortor. Ut id condimentum dui. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Etiam rutrum, ipsum ac interdum ultrices, elit elit suscipit sem, sed mattis augue velit sit amet neque. Aenean id velit enim. Sed fringilla accumsan orci eget sagittis. In nisl mi, dictum sit amet massa vitae, auctor ullamcorper ligula.")
-    return redirect('/')
-
-
+    return render(request, "dope_vinyl/home.html")
 
 def front_allproducts(request):
     try:
         sort=request.POST['sort']
     except:
         sort='title'
-    products = Product.objects.all().order_by(sort)
+    if request.method == 'POST':
+        products = Product.objects.filter(title__contains=request.POST['search_title'])
+    else:
+        products = Product.objects.all().order_by(sort)
     paginator = Paginator(products,15)
     page = request.GET.get('page')
     try:
@@ -62,7 +56,7 @@ def front_allproducts_cat(request, id):
 
 def front_productpage(request, id):
     product = Product.objects.get(id=id)
-    similar_products = Product.objects.filter(genre=product.genre)
+    similar_products = Product.objects.filter(genre=product.genre).exclude(id=product.id)
     context = {
         'product': product,
         'similar_products': similar_products

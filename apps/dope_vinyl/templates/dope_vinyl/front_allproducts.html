@@ -9,13 +9,14 @@
     </head>
     <body>
         <div id="nav_bar">
-            <h3>Dojo eCommerce</h3>
+            <h3>Dope Vinyl</h3>
             <a href="#">Shopping Cart (5)</a>
         </div>
         <div id="left_box">
-            <form class="" action="index.html" value="product name" method="post">
-                <input type="text" name="product_name" value="product_name">
-                <input type="submit" name="name" value="&#x1f50e;">
+            <form class="" action="front_allproducts" name="search_title" method="POST">
+                {% csrf_token %}
+                <input type="text" name="search_title" placeholder="product_name">
+                <input type="submit" value="&#x1f50e;">
             </form>
             <h4>Categories</h4>
             <ul>

@@ -2,7 +2,6 @@ from django.conf.urls import url
 from . import views
 urlpatterns = [
     url(r'^$', views.home),
-    url(r'^add_records$', views.add_records),
     url(r'^show$', views.home),
     # url(r'^dashboard/products$', views.products),
     url(r'^front_allproducts$', views.front_allproducts),
