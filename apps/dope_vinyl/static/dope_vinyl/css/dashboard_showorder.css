@@ -15,7 +15,8 @@ html {
    margin-bottom: 20px;
    color: white;
 }
-    h4 {
+
+    #logo{
     font-family: 'Pacifico', cursive;
     display: inline-block;
     margin: 0px 10px 0px 15px;

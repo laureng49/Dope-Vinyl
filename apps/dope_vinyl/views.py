@@ -1,10 +1,13 @@
 from django.shortcuts import render, redirect, HttpResponse
 from django.contrib import messages
-from .models import Product, Genre, Artist, Admin, Order
+<<<<<<< HEAD
+from .models import Product, Genre, Artist, Admin, Order, Billing, Shipping, Product_orders
+=======
+from .models import Product, Genre, Artist, Admin, Order, Shipping, Billing
+>>>>>>> a2a300c3b7f210187340d1065fac842144c24c91
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 import stripe
 ###################################### USER ####################################################
-
 def home(request):
 
     return render(request, "dope_vinyl/home.html")
@@ -112,6 +115,7 @@ def carts(request):
     return render(request, "dope_vinyl/front_shoppingcart.html", context)
 
 def billing_shipping(request):
+<<<<<<< HEAD
    stripe.api_key = "sk_test_MtYKfrdjHXRPAAuSul1W5m5B"
    token = request.POST['stripeToken']
    try:
@@ -127,6 +131,58 @@ def billing_shipping(request):
      
 
    return redirect('/dashboard/orders')
+=======
+    if request.method == "POST":
+        stripe.api_key = "sk_test_MtYKfrdjHXRPAAuSul1W5m5B"
+        token = request.POST['stripeToken']
+        try:
+            charge = stripe.Charge.create(
+                amount=1,
+                currency="USD",
+                source=token,
+                description="Example charge"
+            )
+            cart = request.session.get('cart', {})
+            cart_list = []
+            sum_total = 0
+            for product_id, quantity in cart.items():
+                the_product = Product.objects.get(id=int(product_id))
+                the_price = quantity * the_product.price
+                cart_list.append([the_product, quantity, the_price])
+                sum_total += the_price
+
+            shipping = Shipping.objects.create(ship_first_name=request.POST['ship_first_name'], ship_last_name=request.POST['ship_last_name'], ship_address1=request.POST['ship_address1'], ship_address2=request.POST['ship_address2'], ship_city=request.POST['ship_city'], ship_state=request.POST['ship_state'], ship_zip=request.POST['ship_zip'])
+            print shipping
+            print "*********"
+            billing = Billing.objects.create(bill_first_name=request.POST['bill_first_name'], bill_last_name=request.POST['bill_last_name'], bill_address1=request.POST['bill_address1'], bill_address2=request.POST['bill_address2'], bill_city=request.POST['bill_city'], bill_state=request.POST['bill_state'], bill_zip=request.POST['bill_zip'])
+            print billing
+            print "*********"
+            order = Order.objects.create(shipping=shipping, billing=billing, total=sum_total, status="Order In Process")
+            print order
+            print "*********"
+
+            for product,quantity,total_price in cart_list:
+                Product_orders.objects.create(orders=order, products=product, quantity=quantity)
+
+            test = Product_orders.objects.filter(orders=3)
+            print test
+            print "SUCCESSFULLLLLLLLLLLLLLLLL"
+            #purchased
+            return redirect('/checkout')
+
+        except stripe.error.CardError as e:
+         # The card has been declined
+            pass
+
+            return redirect('/carts')
+
+def checkout(request):
+    if "cart" in request.session:
+        request.session.pop("cart")
+    return redirect('/front_allproducts')
+       # return redirect('/carts')
+       #after testing route back to all products page
+>>>>>>> 11561dde51aa96ae85d462e9e983f8ac5a7598b5
 
 ###################################### ADMIN ###################################################
 def admin(request):
@@ -143,6 +199,7 @@ def adminlogin(request):
             return redirect('/dashboard/orders')
     return redirect('/admin')
 
+### justin's is: justin.sucks@gmail.com password: dope. Because he sucks.
 ### we put one admin into the DB's Admin table.
 ###     The login is: dope.vinyl.admin@gmail.com (all lowercase)
 ###     The password is: dope (all lowercase)
@@ -152,14 +209,21 @@ def adminlogout(request):
     return redirect('/admin')
 
 ############################################### DASHBOARD #######################################
+
 #ALL ORDERS ON ADMIN PAGE.
 def orders(request):
 
     if 'logged_admin' not in request.session:
         messages.error(request, "Gotta login bro.")
         return redirect('/adminlogin')
+
+    all_shipments = Shipping.objects.all().order_by('-id')
+    all_billings = Billing.objects.all()
+
     context = {
-        'admin': Admin.objects.get(id=request.session['logged_admin'])
+        'admin': Admin.objects.get(id=request.session['logged_admin']),
+        'all_shipments': all_shipments,
+        'all_billings': all_billings
     }
 
     return render(request, 'dope_vinyl/dashboard_allorders.html', context)
@@ -173,7 +237,7 @@ def show_orders(request):
     context = {
         'admin': Admin.objects.get(id=request.session['logged_admin'])
     }
-    return render(request, 'dope_vinyl/dashboard_allorders.html', context)
+    return render(request, 'dope_vinyl/dashboard_showorder.html', context)
 
 #ALL PRODUCTS ON ADMIN PAGE. CLICK ON ADD NEW PRODUCT TO TAKE YOU TO ADD/EDIT ROUTE.
 
@@ -186,9 +250,13 @@ def products(request):
 
     context = {
         "all_products": all_products,
-        "all_genres": all_genres
+        "all_genres": all_genres,
     }
     return render(request, 'dope_vinyl/dashboard_allproducts.html', context)
+
+def products_search(request):
+
+    return redirect("/dashboard/products")
 
 def products_add(request):
     if request.method == "POST":
@@ -202,7 +270,6 @@ def products_add(request):
             genre_type = Genre.objects.get(genre_type=request.POST['genre'])
             Product.objects.create(artist=artist_name, title=request.POST['title'],description=request.POST['description'],genre=genre_type, price=request.POST['price'], inventory=request.POST['inventory'], image=request.FILES['image'])
     return redirect("/dashboard/products")
-
 
 def products_edit(request, id):
     if request.method == "POST":
