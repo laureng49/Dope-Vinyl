@@ -33,71 +33,115 @@ html {
 
 #search_form {
     display: inline-block;
-    margin-left: 50px;
+    margin-left: 100px;
     margin-bottom: 0px;
 }
 
 #search_bar{
-    border: 1px solid black;
+    border-style: solid;
+    border-color: grey;
     border-radius: 10px;
     padding: 2px 400px 2px 10px;
     font-size: 18px;
 }
 
-#container #dropdown{
+#dropdown{
    display: inline-block;
-   margin-left: 650px;
+   border-style: solid;
+   border-color: grey;
+   margin-left: 335px;
 }
 
 table {
-    border: 1px solid black;
+    border-style: solid;
+    border-color: grey;
     margin-top: 50px;
     width: 1100px;
     margin-left: 100px;
     padding-bottom: 300px;
 }
 
-    th {
-        text-align: left;
-        margin: 10px 0px;
-        padding-right: 30px;
+    th{
+       background-color: lightgrey;
     }
 
-    td {
-        text-align: left;
-        margin: 10px 0px;
+    th:nth-child(1) {
+        width: 100px;
+        padding: 5px 5px;
+    }
+
+    th:nth-child(2) {
+        width: 150px;
+        padding: 5px 0px;
+    }
+
+    th:nth-child(3) {
+        width: 150px;
+        padding: 5px 0px;
+    }
+
+    th:nth-child(4) {
+        width: 450px;
+        padding: 5px 0px;
+    }
+
+    th:nth-child(5) {
+        width: 100px;
+        padding: 5px 0px;
+    }
+
+    td:nth-child(1) {
+        width: 100px;
+        padding: 20px 5px;
+    }
+
+    td:nth-child(2) {
+        width: 150px;
+        padding: 20px 0px;
+    }
+
+    td:nth-child(3) {
+        width: 150px;
+        padding: 20px 0px;
+    }
+
+    td:nth-child(4) {
+        width: 450px;
+        padding: 20px 0px;
+    }
+
+    td:nth-child(5) {
+        width: 100px;
+        padding: 20px 0px;
     }
 
     th, td{
-       text-align: left;
+        text-align: left;
     }
 
-    th #order{
-          width: 60px;
+    tr {
+        margin-right: 100px;
     }
 
-    tr:nth-child(odd) {
-        background-color: #e6f2ff
-    }
+    tr:nth-child(odd) {background-color: #e6f2ff}
+img {
+    width: 100px;
+    height: 100px;
+}
 
-    img {
-        width: 100px;
-        height: 100px;
-    }
+label {
+    display: block;
+    font-weight: bold;
+    margin: 0px 0px 10px 0px;
+    width: 100%
+}
 
-    label {
-        display: block;
-        font-weight: bold;
-        margin: 0px 0px 10px 0px;
-        width: 100%
-    }
+input {
+    font-weight: normal;
+}
 
-    input {
-        font-weight: normal;
-    }
-
-    .form-group {
-        margin-top: 40px;
-    }.order{
-        width: 50px;
-    }
+.form-group {
+    margin-top: 40px;
+}.order{
+    width: 50px;
+}
