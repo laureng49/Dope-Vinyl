@@ -21,7 +21,7 @@
                 console.log('checked');
                 $("[name='bill_first_name']").val($("[name='ship_first_name']").val());
                 $("[name='bill_last_name']").val($("[name='ship_last_name']").val());
-                $("[name='bill_address']").val($("[name='ship_address']").val());
+                $("[name='bill_address1']").val($("[name='ship_address1']").val());
                 $("[name='bill_address2']").val($("[name='ship_address2']").val());
                 $("[name='bill_city']").val($("[name='ship_city']").val());
                 $("[name='bill_state']").val($("[name='ship_state']").val());
@@ -98,40 +98,30 @@
           {% csrf_token %}
             <label>First Name: <input type="text" name="ship_first_name"></label>
             <label>Last Name: <input type="text" name="ship_last_name"></label>
-            <label>Address: <input type="text" name="ship_address"></label>
+            <label>Address: <input type="text" name="ship_address1"></label>
             <label>Address 2: <input type="text" name="ship_address2"></label>
             <label>City: <input type="text" name="ship_city"></label>
             <label>State: <input type="text" name="ship_state"></label>
             <label>Zipcode: <input type="text" name="ship_zip"></label>
-          </form>
-        <form action="">
-          {% csrf_token %}
         <h4>Billing Information</h4>
         <label><input type="checkbox" name="same_as_shipping"> Same as Shipping</label>
-        </form>
-            <form class="" action="/billing_shipping" method="POST">
-              {% csrf_token %}
             <label>First Name: <input type="text" name="bill_first_name"></label>
             <label>Last Name: <input type="text" name="bill_last_name"></label>
-            <label>Address: <input type="text" name="bill_address"></label>
+            <label>Address: <input type="text" name="bill_address1"></label>
             <label>Address 2: <input type="text" name="bill_address2"></label>
             <label>City: <input type="text" name="bill_city"></label>
             <label>State: <input type="text" name="bill_state"></label>
             <label>Zipcode: <input type="text" name="bill_zip"></label>
             <br>
-            <label>Card: <input type="text" name="card" value=""></label>
-            <label>Security Code: <input type="text" name="securitycode" value=""></label>
-            <label>Expiration: <input type="text" name="exp_month" value="(mm)"> / <input type="text" name="exp_year" value="(year)"></label>
-            <form action="/billing_shipping" method="POST">
             <script
               src="https://checkout.stripe.com/checkout.js" class="stripe-button"
               data-key="pk_test_oM6TfazDfjAN0q5LsbbdsQ0L"
-              data-amount="999"
+              data-amount="{{total}}"
               data-name="Dope Vinyl"
               data-description="Purchasing a Record"
               data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
               data-locale="auto">
             </script>
-        </form>
+          </form>
     </body>
 </html>

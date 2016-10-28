@@ -11,6 +11,7 @@ urlpatterns = [
     url(r'^front_productpage/show/(?P<id>\d+)$', views.front_productpage, name="product_page"),
     url(r'^front_productpage/buy/(?P<id>\d+)$', views.buy),
     url(r'^carts$', views.carts),
+    url(r'^checkout$', views.checkout),
     url(r'^billing_shipping$', views.billing_shipping),
 
     url(r'^admin$', views.admin),

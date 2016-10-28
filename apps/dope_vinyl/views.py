@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, HttpResponse
 from django.contrib import messages
-from .models import Product, Genre, Artist, Admin, Order
+from .models import Product, Genre, Artist, Admin, Order, Billing, Shipping, Product_orders
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 import stripe
 ###################################### USER ####################################################
@@ -111,20 +111,56 @@ def carts(request):
     return render(request, "dope_vinyl/front_shoppingcart.html", context)
 
 def billing_shipping(request):
-   stripe.api_key = "sk_test_MtYKfrdjHXRPAAuSul1W5m5B"
-   token = request.POST['stripeToken']
-   try:
-     charge = stripe.Charge.create(
-         amount=1000,
-         currency="usd",
-         source=token,
-         description="Example charge"
-     )
-   except stripe.error.CardError as e:
-     # The card has been declined
-     pass
+    if request.method == "POST":
+        stripe.api_key = "sk_test_MtYKfrdjHXRPAAuSul1W5m5B"
+        token = request.POST['stripeToken']
+        try:
+            charge = stripe.Charge.create(
+                amount=1,
+                currency="USD",
+                source=token,
+                description="Example charge"
+            )
+            cart = request.session.get('cart', {})
+            cart_list = []
+            sum_total = 0
+            for product_id, quantity in cart.items():
+                the_product = Product.objects.get(id=int(product_id))
+                the_price = quantity * the_product.price
+                cart_list.append([the_product, quantity, the_price])
+                sum_total += the_price
 
-   return redirect('/dashboard/orders')
+            shipping = Shipping.objects.create(ship_first_name=request.POST['ship_first_name'], ship_last_name=request.POST['ship_last_name'], ship_address1=request.POST['ship_address1'], ship_address2=request.POST['ship_address2'], ship_city=request.POST['ship_city'], ship_state=request.POST['ship_state'], ship_zip=request.POST['ship_zip'])
+            print shipping
+            print "*********"
+            billing = Billing.objects.create(bill_first_name=request.POST['bill_first_name'], bill_last_name=request.POST['bill_last_name'], bill_address1=request.POST['bill_address1'], bill_address2=request.POST['bill_address2'], bill_city=request.POST['bill_city'], bill_state=request.POST['bill_state'], bill_zip=request.POST['bill_zip'])
+            print billing
+            print "*********"
+            order = Order.objects.create(shipping=shipping, billing=billing, total=sum_total, status="Order In Process")
+            print order
+            print "*********"
+
+            for product,quantity,total_price in cart_list:
+                Product_orders.objects.create(orders=order, products=product, quantity=quantity)
+
+            test = Product_orders.objects.filter(orders=3)
+            print test
+            print "SUCCESSFULLLLLLLLLLLLLLLLL"
+            #purchased
+            return redirect('/checkout')
+
+        except stripe.error.CardError as e:
+         # The card has been declined
+            pass
+
+            return redirect('/carts')
+
+def checkout(request):
+    if "cart" in request.session:
+        request.session.pop("cart")
+    return redirect('/front_allproducts')
+       # return redirect('/carts')
+       #after testing route back to all products page
 
 ###################################### ADMIN ###################################################
 def admin(request):
