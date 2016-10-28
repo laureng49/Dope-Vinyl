@@ -2,13 +2,15 @@ from django.shortcuts import render, redirect, HttpResponse
 from django.contrib import messages
 from .models import Product, Genre, Artist, Admin, Order
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-
+import stripe
 ###################################### USER ####################################################
 
 def home(request):
     return render(request, "dope_vinyl/home.html")
 
 def front_allproducts(request):
+    cart = request.session.get('cart', {})
+    length = sum(cart.values())
     try:
         sort=request.POST['sort']
     except:
@@ -30,10 +32,13 @@ def front_allproducts(request):
         'products' : products,
         'genres' : genres,
         'sort_current' : sort,
+        'length': length,
     }
     return render(request, "dope_vinyl/front_allproducts.html", context)
 
 def front_allproducts_cat(request, id):
+    cart = request.session.get('cart', {})
+    length = sum(cart.values())
     try:
         sort=request.POST['sort']
     except:
@@ -55,42 +60,86 @@ def front_allproducts_cat(request, id):
     return render(request, "dope_vinyl/front_allproducts.html", context)
 
 def front_productpage(request, id):
+    cart = request.session.get('cart', {})
+    length = sum(cart.values())
+
     product = Product.objects.get(id=id)
-    similar_products = Product.objects.filter(genre=product.genre).exclude(id=product)
+    similar_products = Product.objects.filter(genre=product.genre).exclude(id=product.id)
+
     context = {
         'product': product,
-        'similar_products': similar_products
+        'similar_products': similar_products,
+        'length': length,
         }
     return render(request, "dope_vinyl/front_productpage.html", context)
 
 def buy(request, id):
+    cart = request.session.get('cart', {})
 
-    return redirect('/front_allproducts')
+    product = Product.objects.get(id=id)
+    product_id = str(product.id)
+
+    if product_id not in cart:
+        cart[product_id] = 1
+        messages.success(request, "Item added to the cart")
+
+    else:
+        cart[product_id] += 1
+        messages.success(request, "Item added again... you must really like this dope vinyl.")
+    request.session['cart'] = cart
+
+    return redirect('product_page', id=product.id)
 
 def carts(request):
+    cart = request.session.get('cart', {})
+    length = sum(cart.values())
 
+    cart_list = []
+    sum_total = 0
 
+    for product_id, quantity in cart.items():
+            the_product = Product.objects.get(id=int(product_id))
+            the_price = quantity * the_product.price
+            cart_list.append([the_product, quantity, the_price])
+            sum_total += the_price
 
+    context = {
+        'length': length,
+        'cart_list': cart_list,
+        'total': sum_total,
+    }
+    return render(request, "dope_vinyl/front_shoppingcart.html", context)
 
-    return render(request, "dope_vinyl/front_shoppingcart.html")
+def billing_shipping(request):
+   stripe.api_key = "sk_test_MtYKfrdjHXRPAAuSul1W5m5B"
+   token = request.POST['stripeToken']
+   try:
+     charge = stripe.Charge.create(
+         amount=1000,
+         currency="usd",
+         source=token,
+         description="Example charge"
+     )
+   except stripe.error.CardError as e:
+     # The card has been declined
+     pass
 
-
+   return redirect('/dashboard/orders')
 
 ###################################### ADMIN ###################################################
-# def admin(request):
-#     return render(request, "dope_vinyl/adminlogin.html")
-#
-#
-# def adminlogin(request):
-#    if request.method == "POST":
-#        admin = Admin.objects.login(request.POST)
-#        #then goes to models login
-#        if not admin:
-#            messages.error(request, "Invalid login credentials!")
-#        else:
-#            request.session['logged_admin'] = admin.id
-#            return redirect('/dashboard/orders')
-#    return redirect('/admin')
+def admin(request):
+    return render(request, "dope_vinyl/adminlogin.html")
+
+def adminlogin(request):
+    if request.method == "POST":
+        admin = Admin.objects.login(request.POST)
+
+        if not admin:
+            messages.error(request, "Invalid login credentials!")
+        else:
+            request.session['logged_admin'] = admin.id
+            return redirect('/dashboard/orders')
+    return redirect('/admin')
 
 ### we put one admin into the DB's Admin table.
 ###     The login is: dope.vinyl.admin@gmail.com (all lowercase)
@@ -103,25 +152,8 @@ def adminlogout(request):
 ############################################### DASHBOARD #######################################
 #ALL ORDERS ON ADMIN PAGE.
 def orders(request):
-
-    # if 'logged_admin' not in request.session:
-    #     messages.error(request, "Gotta login bro")
-    #     return redirect('/adminlogin')
-
-    # context = {
-    #     'admin': Admin.objects.get(id=request.session['logged_admin'])
-    # }
-
-    return render(request, 'dope_vinyl/dashboard_allorders.html')
-
-
-#INDIVIDUAL ORDER ON ADMIN PAGE.
-def show_orders(request):
-
-    return render(request, 'dope_vinyl/dashboard_showorder.html')
-
     if 'logged_admin' not in request.session:
-        messages.error(request, "Gotta login bro")
+        messages.error(request, "Gotta login bro.")
         return redirect('/adminlogin')
     context = {
         'admin': Admin.objects.get(id=request.session['logged_admin'])
@@ -129,12 +161,24 @@ def show_orders(request):
 
     return render(request, 'dope_vinyl/dashboard_allorders.html', context)
 
+
+#INDIVIDUAL ORDER ON ADMIN PAGE.
+def show_orders(request):
+    if 'logged_admin' not in request.session:
+        messages.error(request, "Gotta login bro")
+        return redirect('/adminlogin')
+
+    context = {
+        'admin': Admin.objects.get(id=request.session['logged_admin'])
+    }
+    return render(request, 'dope_vinyl/dashboard_allorders.html', context)
+
 #ALL PRODUCTS ON ADMIN PAGE. CLICK ON ADD NEW PRODUCT TO TAKE YOU TO ADD/EDIT ROUTE.
 
 def products(request):
-    # if 'logged_admin' not in request.session:
-    #     messages.error(request, "Gotta login bro")
-    #     return redirect('/adminlogin')
+    if 'logged_admin' not in request.session:
+        messages.error(request, "Gotta login bro")
+        return redirect('/adminlogin')
     all_products = Product.objects.all().order_by('-id')
     all_genres = Genre.objects.filter()
 
