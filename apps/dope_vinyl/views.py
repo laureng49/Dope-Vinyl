@@ -6,18 +6,8 @@ import stripe
 ###################################### USER ####################################################
 
 def home(request):
-<<<<<<< HEAD
-    context = {'records' : Product.objects.all()}
-    return render(request, "dope_vinyl/home.html", context)
 
-def add_records(request):
-    genre = Genre.objects.filter(genre_type="Pop")[0]
-    artist = Artist.objects.create(name="Taylor Swift")
-    Product.objects.create(genre=genre,image='imgs/Music/Pop/TaylorSwift.jpg',artist=artist,title = "T.S. 1989", price='19.99',inventory="100", description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras ullamcorper, arcu sed interdum ullamcorper, purus diam scelerisque arcu, eget tristique ligula odio sed orci. Pellentesque quis eros in tellus dignissim rutrum. Suspendisse mattis venenatis velit. Nulla faucibus sagittis rhoncus. Praesent consequat et nisl sed facilisis. Vestibulum eget diam massa. Praesent arcu augue, pretium vel libero nec, congue bibendum tortor. Ut id condimentum dui. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Etiam rutrum, ipsum ac interdum ultrices, elit elit suscipit sem, sed mattis augue velit sit amet neque. Aenean id velit enim. Sed fringilla accumsan orci eget sagittis. In nisl mi, dictum sit amet massa vitae, auctor ullamcorper ligula.")
-    return redirect('/')
-=======
-    return render(request, "dope_vinyl/home.html")
->>>>>>> cef7449eada1bdb140db495f30f5c232cba3a452
+    return render(request, "dope_vinyl/home.html", context)
 
 def front_allproducts(request):
     cart = request.session.get('cart', {})
