@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, HttpResponse
 from django.contrib import messages
 
 from .models import Product, Genre, Artist, Admin, Order, Billing, Shipping, Product_orders
-
+>>>>>>> 7f50cc367935de052c03e6b9a098399ffef068f3
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 import stripe
 ###################################### USER ####################################################
