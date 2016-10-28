@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, HttpResponse
 from django.contrib import messages
-from .models import Product, Genre, Artist, Admin, Order
+from .models import Product, Genre, Artist, Admin, Order, Shipping, Billing
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 import stripe
 ###################################### USER ####################################################
@@ -140,6 +140,7 @@ def adminlogin(request):
             return redirect('/dashboard/orders')
     return redirect('/admin')
 
+### justin's is: justin.sucks@gmail.com password: dope. Because he sucks.
 ### we put one admin into the DB's Admin table.
 ###     The login is: dope.vinyl.admin@gmail.com (all lowercase)
 ###     The password is: dope (all lowercase)
@@ -149,13 +150,20 @@ def adminlogout(request):
     return redirect('/admin')
 
 ############################################### DASHBOARD #######################################
+
 #ALL ORDERS ON ADMIN PAGE.
 def orders(request):
     if 'logged_admin' not in request.session:
         messages.error(request, "Gotta login bro.")
         return redirect('/adminlogin')
+
+    all_shipments = Shipping.objects.all().order_by('-id')
+    all_billings = Billing.objects.all()
+
     context = {
-        'admin': Admin.objects.get(id=request.session['logged_admin'])
+        'admin': Admin.objects.get(id=request.session['logged_admin']),
+        'all_shipments': all_shipments,
+        'all_billings': all_billings
     }
 
     return render(request, 'dope_vinyl/dashboard_allorders.html', context)
@@ -170,7 +178,7 @@ def show_orders(request):
     context = {
         'admin': Admin.objects.get(id=request.session['logged_admin'])
     }
-    return render(request, 'dope_vinyl/dashboard_allorders.html', context)
+    return render(request, 'dope_vinyl/dashboard_showorder.html', context)
 
 #ALL PRODUCTS ON ADMIN PAGE. CLICK ON ADD NEW PRODUCT TO TAKE YOU TO ADD/EDIT ROUTE.
 

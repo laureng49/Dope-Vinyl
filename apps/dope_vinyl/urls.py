@@ -1,8 +1,12 @@
 from django.conf.urls import url
 from . import views
 urlpatterns = [
+
+    ########################## HOME #####################################    
     url(r'^$', views.home),
     url(r'^show$', views.home),
+
+    ########################## FRONT END #####################################
     # url(r'^dashboard/products$', views.products),
     url(r'^front_allproducts$', views.front_allproducts),
     url(r'^front_allproducts/page(?P<page>[0-9]+)/$', views.front_allproducts),
@@ -13,9 +17,12 @@ urlpatterns = [
     url(r'^carts$', views.carts),
     url(r'^billing_shipping$', views.billing_shipping),
 
+    ########################## ADMIN #####################################
     url(r'^admin$', views.admin),
     url(r'^adminlogin$', views.adminlogin),
     url(r'^adminlogout$', views.adminlogout),
+
+    ########################## DASHBOARD #####################################
     url(r'^dashboard/products$', views.products, name = 'products'), #TEMPLATE
     url(r'^dashboard/products/add$', views.products_add),
     url(r'^dashboard/products/search$', views.products_search),
@@ -23,4 +30,8 @@ urlpatterns = [
     url(r'^dashboard/products/delete/(?P<id>\d+)$', views.products_delete),
     url(r'^dashboard/orders$', views.orders),
     url(r'^dashboard/orders/show$', views.show_orders),
+
+
+
+
 ]
