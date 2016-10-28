@@ -4,35 +4,39 @@
    {% load staticfiles %}
    <!-- <link rel="stylesheet" type="text/css" href="./../css/dashboard_showorder.css"> -->
    <link rel="stylesheet" href="{% static '/dope_vinyl/css/dashboard_showorder.css' %}" media="screen" title="no title">
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css" integrity="sha384-AysaV+vQoT3kOAXZkl02PThvDr8HYKPZhNT5h/CXfBThSRXQ6jW5DO2ekP5ViFdi" crossorigin="anonymous">
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js" integrity="sha384-BLiI7JTZm+JWlgKa0M0kGRpJbF2J8q+qreVrKBC47e3K6BW78kGLrCkeRX6I9RoK" crossorigin="anonymous"></script>
+
 </head>
 <body>
    <div id="container">
-      <div id="header">
-         <a href="">Dashboard</a>
-         <a href="">Orders</a>
-         <a href="">Products</a>
-         <a id="logoff" href="">log off</a>
-      </div>
-      <div id="content">
-         <div id="address">
-            <p>Order ID: {{order.id}}</p>
-            <div class='address'>
-               <h4>Customer Shipping Info:</h4>
-               <p>name: {{ship_info.first_name}}</p>
-               <p>Address: {{ship_info.address1}}</p>
-               <p>city: {{ship_info.city}}</p>
-               <p>state: {{ship_info.state}}</p>
-               <p>zip: {{ship_info.zip}}</p>
+        <div id="header">
+            <h4>Dashboard</h4>
+            <a href="/dashboard/orders">Orders</a>
+            <a href="/dashboard/products">Products</a>
+            <a id="logoff" href="">log off</a>
+        </div>
+        <div id="content">
+            <div id="address">
+                <h6>Order ID: {{order.id}}</h6>
+                <div class='address'>
+                    <h6>Customer Shipping Info:</h6>
+                    <p>Name: {{ship_info.first_name}}</p>
+                    <p>Address: {{ship_info.address1}}</p>
+                    <p>city: {{ship_info.city}}</p>
+                    <p>state: {{ship_info.state}}</p>
+                    <p>zip: {{ship_info.zip}}</p>
+                </div>
+                <div class="address">
+                    <h6>Customer Billing Info:</h6>
+                    <p>Name: {{ship_info.first_name}}</p>
+                    <p>Address: {{ship_info.address1}}</p>
+                    <p>city: {{ship_info.city}}</p>
+                    <p>state: {{ship_info.state}}</p>
+                    <p>zip: {{ship_info.zip}}</p>
             </div>
-            <div class="address">
-               <h4>Customer Billing Info:</h4>
-               <p>name: {{ship_info.first_name}}</p>
-               <p>Address: {{ship_info.address1}}</p>
-               <p>city: {{ship_info.city}}</p>
-               <p>state: {{ship_info.state}}</p>
-               <p>zip: {{ship_info.zip}}</p>
-            </div>
-         </div>
+        </div>
          <div id='order'>
             <table>
                <tr>
@@ -42,23 +46,32 @@
                   <th>Quantity</th>
                   <th>Total</th>
                </tr>
+               <tr>
+                  <td>1</td>
+                  <td>Tom Petty and the Heartbreakers</td>
+                  <td>Tom Petty and the Heartbreakers</td>
+                  <td>1</td>
+                  <td>$19.99</td>
+               </tr>
                {% for product in products %}
                <tr>
                   <td>{{product.id}}</td>
                   <td>{{product.title}}</td>
                   <td>{{product.price}}</td>
                   <td>{{product.order.quantity}}</td>
-                  <td>{{product.price}}*{{product.order.quantity}}</td>
+                  <td>${{product.price}}*{{product.order.quantity}}</td>
                </tr>
                {% endfor %}
             </table>
+            <div id="lower_order">
             <p id="status">Status: {{order.status}}</p>
-            <div id="charges">
-               <p>Sub total: ${{product.price}}*{{product.order.quantity}}</p>
-               <p>Shipping: ${{order.shipping}}</p>
-               <p>Total Price: ${{product.price}}*{{product.order.quantity}}+{{order.shipping}}</p>
+                <div id="charges">
+                   <p>Sub total: ${{product.price}}*{{product.order.quantity}}</p>
+                   <p>Shipping: ${{order.shipping}}</p>
+                   <p>Total Price: ${{product.price}}*{{product.order.quantity}}+{{order.shipping}}</p>
+                </div>
             </div>
-         </div>
+        </div>
       </div>
    </div>
 </body>

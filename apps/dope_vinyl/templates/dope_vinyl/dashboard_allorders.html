@@ -21,7 +21,7 @@
         <input id="search_bar" type='search' name="search" placeholder="Search">
     </form>
 
-     <select class="custom-select">
+     <select id="dropdown" class="custom-select">
         <option value="showall">Show All</option>
         <option value="process">Order in Process</option>
         <option value="cancelled">Cancelled</option>
@@ -76,6 +76,30 @@
                <td>$200</th>
                <td>Shipped</th>
             </tr>
+            <tr>
+               <td>1</th>
+               <td>Bob</th>
+               <td>10/20/2016</th>
+               <td>1234 Easter Lane WA 98765</th>
+               <td>$200</th>
+               <td>Shipped</th>
+            </tr>
+            <tr>
+               <td>1</th>
+               <td>Bob</th>
+               <td>10/20/2016</th>
+               <td>1234 Easter Lane WA 98765</th>
+               <td>$200</th>
+               <td>Shipped</th>
+            </tr>
+            <tr>
+               <td>1</th>
+               <td>Bob</th>
+               <td>10/20/2016</th>
+               <td>1234 Easter Lane WA 98765</th>
+               <td>$200</th>
+               <td>Shipped</th>
+            </tr>        
             {% for order in orders %}
             <tr>
                <td>{{order.id}}</td>

@@ -9,21 +9,10 @@
         <link rel="stylesheet" href="{% static 'dope_vinyl/css/home.css' %}" media="screen" title="no title">
     </head>
     <body>
-        <div id="nav_bar">
-            <h3>Dojo eCommerce</h3>
-            <a href="/carts">Shopping Cart (5)</a>
-        </div>
-
         <div id="main">
             <h1>Dope Vinyl.</h1>
             <h2>Hear with your ears.</h2>
+            <p><a id="click" href="front_allproducts">Click Here to Browse Our Products</a></p>
         </div>
-        <!-- Keeping the below for adding in products for testing purposes -->
-        <!-- <a href="add_records">Add a record</a>
-        <a href="show">Show</a>
-        {% for record in records %}
-        <p>{{record.title}} {{record.artist.name}} {{record.image}} {{record.genre.genre_type}} {{record.inventory}}</p>
-        {% endfor %} -->
-        <p><a id="click" href="front_allproducts">Click Here to Browse Our Products</a></p>
     </body>
 </html>
