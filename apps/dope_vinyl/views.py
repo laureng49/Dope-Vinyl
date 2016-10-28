@@ -1,10 +1,8 @@
 from django.shortcuts import render, redirect, HttpResponse
 from django.contrib import messages
-<<<<<<< HEAD
+
 from .models import Product, Genre, Artist, Admin, Order, Billing, Shipping, Product_orders
-=======
-from .models import Product, Genre, Artist, Admin, Order, Shipping, Billing
->>>>>>> a2a300c3b7f210187340d1065fac842144c24c91
+
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 import stripe
 ###################################### USER ####################################################
@@ -115,29 +113,13 @@ def carts(request):
     return render(request, "dope_vinyl/front_shoppingcart.html", context)
 
 def billing_shipping(request):
-<<<<<<< HEAD
-   stripe.api_key = "sk_test_MtYKfrdjHXRPAAuSul1W5m5B"
-   token = request.POST['stripeToken']
-   try:
-     charge = stripe.Charge.create(
-         amount=1000,
-         currency="usd",
-         source=token,
-         description="Example charge"
-     )
-   except stripe.error.CardError as e:
-     # The card has been declined
-     pass
-     
 
-   return redirect('/dashboard/orders')
-=======
     if request.method == "POST":
         stripe.api_key = "sk_test_MtYKfrdjHXRPAAuSul1W5m5B"
         token = request.POST['stripeToken']
         try:
             charge = stripe.Charge.create(
-                amount=1,
+                amount=1000,
                 currency="USD",
                 source=token,
                 description="Example charge"
@@ -182,8 +164,6 @@ def checkout(request):
     return redirect('/front_allproducts')
        # return redirect('/carts')
        #after testing route back to all products page
->>>>>>> 11561dde51aa96ae85d462e9e983f8ac5a7598b5
-
 ###################################### ADMIN ###################################################
 def admin(request):
     return render(request, "dope_vinyl/adminlogin.html")
@@ -229,14 +209,19 @@ def orders(request):
     return render(request, 'dope_vinyl/dashboard_allorders.html', context)
 
 #INDIVIDUAL ORDER ON ADMIN PAGE.
-def show_orders(request):
+def show_orders(request, id):
     if 'logged_admin' not in request.session:
         messages.error(request, "Gotta login bro")
         return redirect('/adminlogin')
-
+    customerorder = Product_orders.objects.filter(id=id)
+    products_in_order = Product_orders.objects.filter(orders=id)
+    print customerorder.query
     context = {
-        'admin': Admin.objects.get(id=request.session['logged_admin'])
+        'admin' : Admin.objects.get(id=request.session['logged_admin']),
+        'customerorder' : customerorder,
+        'products_in_order' : products_in_order
     }
+
     return render(request, 'dope_vinyl/dashboard_showorder.html', context)
 
 #ALL PRODUCTS ON ADMIN PAGE. CLICK ON ADD NEW PRODUCT TO TAKE YOU TO ADD/EDIT ROUTE.
