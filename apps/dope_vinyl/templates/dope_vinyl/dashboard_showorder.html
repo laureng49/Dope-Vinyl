@@ -54,17 +54,17 @@
                   <td>{{product.products.title}}</td>
                   <td>{{product.products.price}}</td>
                   <td>{{product.quantity}}</td>
-                  <td>${{product.products.price}}*{{product.products.quantity}}</td>
+                  <td>${{product.total}}</td>
                </tr>
                {% endfor %}
             </table>
             <div id="lower_order">
               {% for product in products_in_order %}
-            <p id="status">Status: {{order.status}}</p>
+            <p id="status">Status: {{product.orders.status}}</p>
                 <div id="charges">
-                   <p>Sub total: ${{product.products.price}}*{{product.products.order.quantity}}</p>
-                   <p>Shipping: ${{product.products.order.shipping}}</p>
-                   <p>Total Price: ${{product.products.price}}*{{product.products.order.quantity}}+{{product.order.shipping}}</p>
+                   <p>Sub total: ${{totaltotal}}</p>
+                   <p>Shipping: ${{shiptax}}</p>
+                   <p>Total Price: ${{finaltotal}}</p>
               {% endfor %}
                 </div>
             </div>

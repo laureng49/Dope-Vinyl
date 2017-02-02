@@ -1,8 +1,7 @@
 from django.shortcuts import render, redirect, HttpResponse
 from django.contrib import messages
-
+from django.db.models import F, Sum
 from .models import Product, Genre, Artist, Admin, Order, Billing, Shipping, Product_orders
->>>>>>> 7f50cc367935de052c03e6b9a098399ffef068f3
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 import stripe
 ###################################### USER ####################################################
@@ -214,12 +213,27 @@ def show_orders(request, id):
         messages.error(request, "Gotta login bro")
         return redirect('/adminlogin')
     customerorder = Product_orders.objects.filter(id=id)
-    products_in_order = Product_orders.objects.filter(orders=id)
-    print customerorder.query
+
+    products_in_order = Product_orders.objects.filter(orders=id).annotate(total=Sum(F('products__price') * F('quantity')))
+    print products_in_order.query
+
+    totaltotal = 0
+    for item in products_in_order:
+        price = item.products.price
+        quantity = item.quantity
+        totaltotal += price * quantity
+        print price * quantity
+        print item.total
+    shiptax = int(7)
+    finaltotal = totaltotal + shiptax
+
     context = {
         'admin' : Admin.objects.get(id=request.session['logged_admin']),
         'customerorder' : customerorder,
-        'products_in_order' : products_in_order
+        'products_in_order' : products_in_order,
+        'shiptax' : shiptax,
+        'finaltotal': finaltotal,
+        'totaltotal': totaltotal
     }
 
     return render(request, 'dope_vinyl/dashboard_showorder.html', context)
